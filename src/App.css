@@ -1,12 +1,13 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+html {
+  width: 98vw;
+  height: 98vh;
 }
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  margin: 0;
   background-color: gray;
+}
+.App {
+  
+  width: 98vw;
+  height: 98vh;
 }

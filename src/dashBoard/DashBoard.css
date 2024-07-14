@@ -1,0 +1,48 @@
+.filters {
+  top: 1%;
+  width: 95%;
+  
+  border-radius: 20px;
+}
+.body {
+  width: 74%;
+  height: 100%;
+  border: 2px solid black;
+  padding: 0;
+}
+
+.collage,
+.city {
+  display: inline-block;
+  width: 15vh;
+  height: 42px;
+  font-size: 19px;
+  border-radius: 10px;
+}
+
+.searchBox {
+  height: 45px;
+  width: 20vw;
+  border-radius: 30px;
+  border: 2px solid black;
+  background-color: white;
+  display: flex;
+}
+.search {
+  position: relative;
+  padding: 0 10px;
+  height: 41px;
+  width: 100%;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+}
+.search::placeholder {
+  font-size: 20px;
+}
+.searchBox .icon {
+  position: relative;
+}
+.table {
+    width: 75%;
+}

@@ -1,9 +1,13 @@
 import "./App.css";
+import DashBoard from "./dashBoard/DashBoard";
 import LogInPage from "./log-in-page/LogInPage";
 function App() {
-  return <div>
-    <LogInPage></LogInPage>
-  </div>;
+  return (
+    <>
+      <DashBoard>
+    </DashBoard>
+    </>
+  );
 }
 
 export default App;
