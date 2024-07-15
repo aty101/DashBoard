@@ -1,0 +1,78 @@
+
+.filters {
+  top: 1%;
+  width: 95%;
+  
+  
+}
+.body {
+  width: 74%;
+  height: 100%;
+  margin: auto;
+  border: 2px solid black;
+  padding: 0;
+}
+
+
+.collage,
+.city {
+  display: inline-block;
+  width: 15vh;
+  height: 5vh;
+  font-size: 19px;
+  border-radius: 10px;
+}
+
+.searchBox {
+  height: 5vh;
+  width: 14vw;
+  border-radius: 30px;
+  border: 2px solid black;
+  background-color: white;
+  display: flex;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+.search {
+  position: relative;
+  padding: 0 10px;
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+.search::placeholder {
+  font-size: 15px;
+  
+}
+.searchBox .icon {
+  position: relative;
+  top: 0;
+  
+}
+.table {
+    width: 75%;
+}
+
+.navButtons{
+  width: 33%;
+  text-align: center;
+  border: 2px solid black;
+}
+.acceptButton,.rejectButton{
+  width: 4vw;
+  border: 2px solid black;
+}
+.acceptButton{
+  background-color: green;
+}
+.rejectButton{
+  background-color: rgba(255, 0, 0, 0.904);
+}

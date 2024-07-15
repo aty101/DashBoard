@@ -1,9 +1,17 @@
 import "./SideBar.css";
+import 'bootstrap/dist/css/bootstrap.css'
 const listItems = ["اضافة كتاب", "مراجعة طلب التحاق", "طلبات تم مراجعتها"];
 function SideBar() {
   return (
-    <div className="sideBar " >
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis vitae voluptates voluptatibus eum harum tempore modi iusto laboriosam consectetur corrupti, necessitatibus beatae debitis nihil. Fugit minus similique at numquam corporis!</p>
+    <div className="requestPage d-flex flex-column">
+      <div className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid d-flex justify-content-around">
+          <div className="navButtons">مراجعة طلبات الالتحاق</div>
+          <div className="navButtons">طلبات تم مراجعتها</div>
+          <div className="navButtons">اضافة كتاب</div>
+          <div className="navButtons">المدارس المشاركة</div>
+        </div>
+      </div>
     </div>
   );
 }

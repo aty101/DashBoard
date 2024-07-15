@@ -1,11 +1,13 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import DashBoard from "./dashBoard/DashBoard";
+
 import LogInPage from "./log-in-page/LogInPage";
+import SideBar from "./dashBoard/SideBar";
 function App() {
   return (
     <>
-      <DashBoard>
-    </DashBoard>
+      <LogInPage></LogInPage>
+      
     </>
   );
 }
