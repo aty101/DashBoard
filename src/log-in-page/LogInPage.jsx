@@ -26,7 +26,7 @@ function LogInPage() {
 
   return (
     <div className="wrapper">
-      <div className="container">
+      <div className="contain">
         <form action="">
           <h1>مرحبا في جامعة الازهر</h1>
           <div className="input-box">
