@@ -18,6 +18,7 @@ function LogInPage() {
     // }
     // if (userPassword == "") {
     //   setErrorMessage2("هذا الحقل مطلوب");
+    //   return;
     // } else {
     //   setErrorMessage2("");
     // }
@@ -31,6 +32,7 @@ function LogInPage() {
           <h1>مرحبا في جامعة الازهر</h1>
           <div className="input-box">
             <input
+              required
               value={userName}
               onChange={(e) => setUserName(e.currentTarget.value)}
               type="text"
@@ -41,6 +43,7 @@ function LogInPage() {
           </div>
           <div className="input-box">
             <input
+              required
               value={userPassword}
               onChange={(e) => setPassword(e.currentTarget.value)}
               type="password"
@@ -50,7 +53,7 @@ function LogInPage() {
             <p className="errorBox">{errorMessage2}</p>
           </div>
           <div>
-            <button type="button" onClick={check}>
+            <button type="submit"  onClick={check}>
               تسجيل دخول
             </button>
           </div>

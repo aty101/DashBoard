@@ -1,0 +1,27 @@
+.popUpWindowBackGround {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popUpWindow {
+  width: 40vw;
+  height: 40vh;
+  background-color: white;
+  border-radius: 40px;
+  padding: 30px;
+  
+  
+}
+
+.addSchoolTag {
+  width: 100%;
+  height: 6vh;
+  margin: 10px ;
+}
