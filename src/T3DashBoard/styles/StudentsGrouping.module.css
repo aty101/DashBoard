@@ -58,23 +58,14 @@
   top: 0;
 }
 
-.acceptButton,
-.rejectButton {
-  width: 3vw;
-  height: 3vh;
-  border: 2px solid black;
-}
-.acceptButton {
-  background-color: green;
-}
-.acceptButton:hover {
-  background-color: rgba(0, 128, 0, 0.589);
+tbody tr:hover {
+  background-color: lightgray;
   cursor: pointer;
 }
-.rejectButton {
-  background-color: rgba(255, 0, 0, 0.904);
+
+tbody tr:hover td {
+  background-color: transparent; /* or #000 */
 }
-.rejectButton:hover {
-  background-color: rgba(255, 0, 0, 0.671);
-  cursor: pointer;
+th {
+  cursor: auto;
 }

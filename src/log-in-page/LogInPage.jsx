@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "./LogInPage.module.css";
 import { FaUser, FaLock } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+
 
 function LogInPage() {
   const [userName, setUserName] = useState("");
@@ -9,6 +10,7 @@ function LogInPage() {
   const [errorMessage1, setErrorMessage1] = useState();
   const [errorMessage2, setErrorMessage2] = useState();
   const navigate = useNavigate();
+
 
   function check() {
     // if (userName == "") {
@@ -30,11 +32,9 @@ function LogInPage() {
       <div className={styles.contain}>
         <form action="">
           <h1>مرحبا في جامعة الازهر</h1>
-          <div className={
-            styles.inputBox
-          }>
+          <div className={styles.inputBox}>
             <input
-              required
+              // required
               value={userName}
               onChange={(e) => setUserName(e.currentTarget.value)}
               type="text"
@@ -45,7 +45,7 @@ function LogInPage() {
           </div>
           <div className={styles.inputBox}>
             <input
-              required
+              // required
               value={userPassword}
               onChange={(e) => setPassword(e.currentTarget.value)}
               type="password"
@@ -55,7 +55,7 @@ function LogInPage() {
             <p className={styles.errorBox}>{errorMessage2}</p>
           </div>
           <div>
-            <button type="submit"  onClick={check}>
+            <button type="button" onClick={check}>
               تسجيل دخول
             </button>
           </div>

@@ -1,34 +1,39 @@
-import SideBar from "./SideBar";
+import NavBar from "./NavBar";
 import { FaSearch } from "react-icons/fa";
-import styles from "./styles/StudentsData.module.css";
+import styles from "./styles/StudentsGrouping.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 
 var requests = [
   {
-    name: "مصطفى خالد محمود محمد",
+    name: "أ",
     ID: 1,
     city: "القاهرة",
-    collage: "أ",
+    studentsNumber: 520,
   },
   {
-    name: "محمود احمد عبد الرحيم",
+    name: "ب",
     ID: 2,
     city: "القليوبية",
-    collage: "ب",
+    studentsNumber: 350,
+  },
+  {
+    name: "ب",
+    ID: 3,
+    city: "الاسكندرية",
+    studentsNumber: 200,
   },
 ];
 
-const cities = ["القاهرة", "القليوبية"];
+const cities = ["القاهرة", "القليوبية", "الاسكندرية"];
 const schools = ["أ", "ب"];
 
 function StudentsData() {
   const [IDFilter, setIDFilter] = useState("");
   const [cityFilter, setCityFilter] = useState();
-  const [collageFilter, setCollageFilter] = useState();
   return (
     <>
-      <SideBar></SideBar>
+      <NavBar></NavBar>
       <div className={`${styles.requestPage} d-flex flex-column`}>
         <div
           className={`d-flex flex-column justify-content-center mb-2 mt-2  ${styles.body}`}
@@ -62,44 +67,26 @@ function StudentsData() {
                   return <option value={item}>{item}</option>;
                 })}
               </select>
-              <select
-                value={collageFilter}
-                onChange={(e) => {
-                  setCollageFilter(e.target.value);
-                }}
-                className={styles.collage}
-              >
-                <option value={""} selected disabled hidden>
-                  المدرسة
-                </option>
-                <option value={"الكل"}>الكل</option>
-                {schools.map((item) => {
-                  return <option value={item}>{item}</option>;
-                })}
-              </select>
             </div>
           </div>
           <div className="table mb-0">
-            <table className="table table-striped mb-0   mt-0 table-bordered">
+            <table className="table  mb-0   mt-0 table-bordered">
               <thead>
                 <tr>
                   <th scope="col" className="text-center">
                     #
                   </th>
                   <th scope="col" className="text-center">
-                    اسم الطالب
+                    اسم المدرسة
                   </th>
                   <th scope="col" className="text-center">
-                    رقم الجلوس
+                    رقم المدرسة
                   </th>
                   <th scope="col" className="text-center">
                     المحافظة
                   </th>
                   <th scope="col" className="text-center">
-                    المدرسة
-                  </th>
-                  <th scope="col" className="text-center">
-                    Action
+                    عدد الطلاب
                   </th>
                 </tr>
               </thead>
@@ -109,25 +96,20 @@ function StudentsData() {
                     (cityFilter != undefined &&
                       cityFilter != item.city &&
                       cityFilter != "الكل") ||
-                    (collageFilter != undefined &&
-                      collageFilter != item.collage &&
-                      collageFilter != "الكل") ||
                     (IDFilter != "" && IDFilter != item.ID)
                   ) {
                     return;
                   }
                   return (
-                    <tr>
-                      <th scope="row">{key + 1}</th>
-                      <td>{item.name}</td>
-                      <td>{item.ID}</td>
-                      <td>{item.city}</td>
-                      <td>{item.collage}</td>
-                      <td className="text-center d-flex justify-content-around">
-                        <div className={styles.acceptButton}>✔</div>
-                        <div className={styles.rejectButton}>✖</div>
-                      </td>
-                    </tr>
+                    <>
+                      <tr>
+                        <th scope="row">{key + 1}</th>
+                        <td>{item.name}</td>
+                        <td>{item.ID}</td>
+                        <td>{item.city}</td>
+                        <td>{item.studentsNumber}</td>
+                      </tr>
+                    </>
                   );
                 })}
               </tbody>

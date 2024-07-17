@@ -1,9 +1,10 @@
-import SideBar from "./SideBar";
+import SideBar from "./NavBar";
 import { FaPlus, FaSearch } from "react-icons/fa";
 import styles from "./styles/SchoolsData.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 import AddSchooleWindow from "./AddSchooleWindow";
+import NavBar from "./NavBar";
 
 var schools = [
   {
@@ -30,7 +31,7 @@ function SchoolsData() {
   return (
     <>
       {/* Nav Bar */}
-      <SideBar></SideBar>
+      <NavBar></NavBar>
 
       <div className={`"${styles.requestPage} d-flex flex-column"`}>
         <div
