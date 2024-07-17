@@ -10,8 +10,10 @@
   align-items: center;
   justify-content: center;
 }
-.container {
-  width: 70vh !important;
+
+.contain {
+  width: 30vw;
+
   background-color: white;
   border-radius: 40px;
   padding: 30px;
@@ -21,11 +23,11 @@
   -o-border-radius: 40px;
 }
 
-.container h1 {
+.contain h1 {
   text-align: center;
 }
-.container .input-box {
-  position: relative;
+.contain .inputBox {
+ position: relative;
   width: 100%;
   height: 7vh;
   margin: 40px auto;
@@ -37,7 +39,7 @@
   -ms-border-radius: 40px;
   -o-border-radius: 40px;
 }
-.input-box input {
+.inputBox input {
   position: relative;
   width: 85%;
   height: 95%;
@@ -51,7 +53,7 @@
   -o-border-radius: 40px;
 }
 
-.input-box input::placeholder {
+.inputBox input::placeholder {
   color: black;
 }
 .icon {
