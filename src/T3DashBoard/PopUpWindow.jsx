@@ -9,15 +9,15 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
   ];
   const depOptions = [
     {
-      value: "1",
+      value: 0,
       label: "1",
     },
     {
-      value: "2",
+      value: 1,
       label: "2",
     },
     {
-      value: "3",
+      value: 2,
       label: "3",
     },
   ];
@@ -99,15 +99,18 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
         )}
         {swapContent && (
           <form>
-            <input
-              value={schoolName}
-              ref={(el) => {
-                inputTagsRef.current.push(el);
-              }}
-              onChange={(e) => setSchoolName(e.target.value)}
-              className={styles.addSchoolTag}
-              placeholder={`${typeChange("اسم المدرسة", "رقم المدرسة")}`}
-            ></input>
+            {typeChange(true, false) && (
+              <input
+                value={schoolName}
+                ref={(el) => {
+                  inputTagsRef.current.push(el);
+                }}
+                onChange={(e) => setSchoolName(e.target.value)}
+                className={styles.addSchoolTag}
+                placeholder={"اسم المدرسة"}
+              ></input>
+            )}
+            {typeChange(false, true) && <div>miqwfiqjwfjoi</div>}
             <Select
               value={cityName}
               onChange={(selectedItem) => setCityName(selectedItem)}
@@ -118,6 +121,7 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
             ></Select>
             <input
               value={schoolNumber}
+              type="number"
               ref={(el) => {
                 inputTagsRef.current.push(el);
               }}
@@ -127,6 +131,7 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
             ></input>
             <input
               value={studentsNumber}
+              type="number"
               ref={(el) => {
                 inputTagsRef.current.push(el);
               }}
@@ -137,9 +142,10 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
             <button
               type="button"
               onClick={() => {
-                data[index].departments.push(`${cityName}`);
-                data[index].studentsNumber.push(schoolName);
-                data[index].studentsNumber.push(studentsNumber);
+                data[index].studentsNumber[cityName.value] = schoolNumber;
+                data[index].teachersNumber[cityName.value] = studentsNumber;
+                console.log(cityName);
+                console.log(data);
                 addData(data);
                 setSchoolName(null);
                 setCityName(null);
