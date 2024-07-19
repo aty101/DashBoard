@@ -3,34 +3,63 @@ import { FaSearch } from "react-icons/fa";
 import styles from "./styles/StudentsGrouping.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
-
-var requests = [
-  {
-    name: "أ",
-    ID: 1,
-    city: "القاهرة",
-    studentsNumber: 520,
-  },
-  {
-    name: "ب",
-    ID: 2,
-    city: "القليوبية",
-    studentsNumber: 350,
-  },
-  {
-    name: "ب",
-    ID: 3,
-    city: "الاسكندرية",
-    studentsNumber: 200,
-  },
-];
+import PopUpWindow from "./PopUpWindow";
 
 const cities = ["القاهرة", "القليوبية", "الاسكندرية"];
-const schools = ["أ", "ب"];
 
 function StudentsData() {
   const [IDFilter, setIDFilter] = useState("");
   const [cityFilter, setCityFilter] = useState();
+  const [openPopUpWindow, setOpenPopUpWindow] = useState(false);
+  const [index, setIndex] = useState();
+  const [data, setData] = useState([
+    {
+      name: "أ",
+      ID: 1,
+      city: "القاهرة",
+      departments: ["1", "2", "3"],
+      studentsNumber: ["20", "80", "90"],
+      teachersNumber: ["20", "80", "90"],
+      totalStudents: 190,
+      totalTeachers: 190,
+    },
+    {
+      name: "ب",
+      ID: 2,
+      city: "القليوبية",
+      departments: ["1", "2", "3"],
+      studentsNumber: ["20", "80", "90"],
+      teachersNumber: ["20", "80", "90"],
+      totalStudents: 190,
+      totalTeachers: 190,
+    },
+    {
+      name: "ث",
+      ID: 3,
+      city: "الاسكندرية",
+      departments: ["1", "2", "3"],
+      studentsNumber: [],
+      teachersNumber: [],
+      totalStudents: 190,
+      totalTeachers: 190,
+    },
+  ]);
+  const openClosePage = () => {
+    
+    setOpenPopUpWindow(!openPopUpWindow);
+  };
+  const getData = () => {
+    return data;
+  };
+  const addData = (arr) => {
+    setData(arr);
+  };
+  const openPage = (i) => {
+
+    openClosePage();
+    setIndex(i);
+  };
+
   return (
     <>
       <NavBar></NavBar>
@@ -86,12 +115,18 @@ function StudentsData() {
                     المحافظة
                   </th>
                   <th scope="col" className="text-center">
+                    التخصصات
+                  </th>
+                  <th scope="col" className="text-center">
                     عدد الطلاب
+                  </th>
+                  <th scope="col" className="text-center">
+                    عدد المدرسين
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                {requests.map((item, key) => {
+              <tbody className={styles.tableBody}>
+                {data.map((item, key) => {
                   if (
                     (cityFilter != undefined &&
                       cityFilter != item.city &&
@@ -102,12 +137,48 @@ function StudentsData() {
                   }
                   return (
                     <>
-                      <tr>
-                        <th scope="row">{key + 1}</th>
-                        <td>{item.name}</td>
-                        <td>{item.ID}</td>
-                        <td>{item.city}</td>
-                        <td>{item.studentsNumber}</td>
+                      <tr onClick={()=>openPage(key)}>
+                        <th scope="row" className="text-center">
+                          {key + 1}
+                        </th>
+                        <td className="text-center align-middle">
+                          {item.name}
+                        </td>
+                        <td className="text-center align-middle">{item.ID}</td>
+                        <td className="text-center align-middle">
+                          {item.city}
+                        </td>
+                        <td className="text-center align-middle">
+                          {item.departments.map((e) => {
+                            return (
+                              <div className={styles.depNumTableCells}>{e}</div>
+                            );
+                          })}
+                        </td>
+
+                        <td className="text-center align-middle">
+                          {item.studentsNumber.length != 0
+                            ? item.studentsNumber.map((e) => {
+                                return (
+                                  <div className={styles.depNumTableCells}>
+                                    {e}
+                                  </div>
+                                );
+                              })
+                            : item.totalStudents}
+                        </td>
+
+                        <td className="text-center align-middle">
+                          {item.teachersNumber.length != 0
+                            ? item.teachersNumber.map((e) => {
+                                return (
+                                  <div className={styles.depNumTableCells}>
+                                    {e}
+                                  </div>
+                                );
+                              })
+                            : item.totalTeachers}
+                        </td>
                       </tr>
                     </>
                   );
@@ -117,6 +188,15 @@ function StudentsData() {
           </div>
         </div>
       </div>
+      {openPopUpWindow && (
+        <PopUpWindow
+          type={"addGroups"}
+          setOpenAddPage={openClosePage}
+          getData={getData}
+          addData={addData}
+          index={index}
+        ></PopUpWindow>
+      )}
     </>
   );
 }

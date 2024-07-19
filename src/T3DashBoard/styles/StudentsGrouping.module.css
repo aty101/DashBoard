@@ -58,14 +58,37 @@
   top: 0;
 }
 
-tbody tr:hover {
+.tableBody tr:hover {
   background-color: lightgray;
   cursor: pointer;
 }
+.tableBody td {
+  background-color: transparent; /* or #000 */
+  user-select: none;
+  padding: 0;
+  text-align: center;
+}
+.tableBody th {
+  background-color: transparent; /* or #000 */
+  user-select: none;
+}
 
-tbody tr:hover td {
+.tableBody tr:hover td {
   background-color: transparent; /* or #000 */
 }
-th {
-  cursor: auto;
+.tableBody tr:hover th {
+  background-color: transparent; /* or #000 */
+}
+.depNumTableCells {
+  height: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dee2e6;
+  padding-right: 10px;
+}
+.cells{
+  display: inline-block;
+  top:20px;
+  
 }

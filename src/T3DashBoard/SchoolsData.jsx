@@ -3,7 +3,7 @@ import { FaPlus, FaSearch } from "react-icons/fa";
 import styles from "./styles/SchoolsData.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
-import AddSchooleWindow from "./AddSchooleWindow";
+import AddSchooleWindow from "./PopUpWindow";
 import NavBar from "./NavBar";
 
 var schools = [
@@ -75,7 +75,7 @@ function SchoolsData() {
             </div>
           </div>
           <div className="table mb-0">
-            <table className="table table-striped mb-0   mt-0 table-bordered">
+            <table className="table  mb-0   mt-0 table-bordered">
               <thead>
                 <tr>
                   <th scope="col" className="text-center">
@@ -119,7 +119,7 @@ function SchoolsData() {
           </div>
         </div>
       </div>
-      {openAddPage && <AddSchooleWindow setOpenAddPage={setOpenAddPage} />}
+      {openAddPage && <AddSchooleWindow setOpenAddPage={setOpenAddPage} type={"addSchool"} />}
     </>
   );
 }
