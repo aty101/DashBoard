@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <SideBar></SideBar>,
   },
   {
-    path: "requests",
+    path: "groups",
     element: <StudentsData></StudentsData>,
   },
 
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
     path: "schools",
     element: <SchoolsData></SchoolsData>,
   },
+ 
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

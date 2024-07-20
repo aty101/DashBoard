@@ -45,7 +45,6 @@ function StudentsData() {
     },
   ]);
   const openClosePage = () => {
-    
     setOpenPopUpWindow(!openPopUpWindow);
   };
   const getData = () => {
@@ -55,11 +54,14 @@ function StudentsData() {
     setData(arr);
   };
   const openPage = (i) => {
-
     openClosePage();
     setIndex(i);
   };
-
+  const [backUp, setBackUp] = useState(
+    data.map((v, key) => {
+      return v.studentsNumber;
+    })
+  );
   return (
     <>
       <NavBar></NavBar>
@@ -77,7 +79,7 @@ function StudentsData() {
                   onChange={(e) => setIDFilter(e.target.value)}
                   type="text"
                   className={styles.search}
-                  placeholder="ابحث عن رقم الجلوس"
+                  placeholder="ابحث بإستخدام رقم المدرسة"
                 ></input>
                 <FaSearch className={styles.icon}></FaSearch>
               </div>
@@ -137,7 +139,7 @@ function StudentsData() {
                   }
                   return (
                     <>
-                      <tr onClick={()=>openPage(key)}>
+                      <tr onClick={() => openPage(key)}>
                         <th scope="row" className="text-center">
                           {key + 1}
                         </th>
@@ -195,6 +197,8 @@ function StudentsData() {
           getData={getData}
           addData={addData}
           index={index}
+          studentsBackUp={backUp}
+          setStudentsBackUp={setBackUp}
         ></PopUpWindow>
       )}
     </>

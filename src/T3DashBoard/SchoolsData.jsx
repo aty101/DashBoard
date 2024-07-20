@@ -6,27 +6,31 @@ import { useState } from "react";
 import AddSchooleWindow from "./PopUpWindow";
 import NavBar from "./NavBar";
 
-var schools = [
-  {
-    name: "خالد بن الوليد",
-    schoolNumber: 1,
-    city: "القاهرة",
-    studentsNumber: 500,
-  },
-  {
-    name: "حلمية الزيتون",
-    schoolNumber: 2,
-    city: "القليوبية",
-    studentsNumber: 200,
-  },
-];
-
-const cities = ["القاهرة", "القليوبية"];
-
 function SchoolsData() {
+  const cities = ["القاهرة", "القليوبية"];
   const [IDFilter, setIDFilter] = useState("");
   const [cityFilter, setCityFilter] = useState();
   const [openAddPage, setOpenAddPage] = useState(false);
+
+  const [data, setData] = useState([
+    {
+      name: "خالد بن الوليد",
+      address: 1,
+      city: "القاهرة",
+      departments: [],
+      studentsNumber: 500,
+    },
+    {
+      name: "حلمية الزيتون",
+      address: 2,
+      city: "القليوبية",
+      departments: [],
+      studentsNumber: 200,
+    },
+  ]);
+  const getData = () => {
+    return data;
+  };
 
   return (
     <>
@@ -85,7 +89,7 @@ function SchoolsData() {
                     اسم المدرسة
                   </th>
                   <th scope="col" className="text-center">
-                    رقم المدرسة
+                    العنوان
                   </th>
                   <th scope="col" className="text-center">
                     المحافظة
@@ -96,19 +100,19 @@ function SchoolsData() {
                 </tr>
               </thead>
               <tbody>
-                {schools.map((item, key) => {
+                {data.map((item, key) => {
                   if (
                     (cityFilter != undefined &&
                       cityFilter != item.city &&
                       cityFilter != "الكل") ||
-                    (IDFilter != "" && IDFilter != item.schoolNumber)
+                    (IDFilter != "" && IDFilter != item.address)
                   )
                     return;
                   return (
                     <tr>
                       <th scope="row">{key + 1}</th>
                       <td>{item.name}</td>
-                      <td>{item.schoolNumber}</td>
+                      <td>{item.address}</td>
                       <td>{item.city}</td>
                       <td>{item.studentsNumber}</td>
                     </tr>
@@ -119,7 +123,14 @@ function SchoolsData() {
           </div>
         </div>
       </div>
-      {openAddPage && <AddSchooleWindow setOpenAddPage={setOpenAddPage} type={"addSchool"} />}
+      {openAddPage && (
+        <AddSchooleWindow
+          setOpenAddPage={setOpenAddPage}
+          addData={setData}
+          type={"addSchool"}
+          getData={getData}
+        />
+      )}
     </>
   );
 }
