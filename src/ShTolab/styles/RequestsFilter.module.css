@@ -1,0 +1,30 @@
+.requestFilterContainer {
+    padding: 15px;
+    background-color: aliceblue;
+    border-radius: 8px 8px 0 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.requestFilterContainer input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    max-width: 200px;
+    margin-left: 20px;
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+.requestFilterContainer input:focus {
+    border: 2px solid rgb(0, 140, 255);
+}
+.requestFilterContainer button {
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-left: 20px;
+    cursor: pointer;
+    width: 100px;
+    height: 35px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}

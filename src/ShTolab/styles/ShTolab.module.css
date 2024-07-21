@@ -1,0 +1,27 @@
+
+.requestResult{
+    display: flex;
+    justify-content: space-around;
+} 
+.requestResult button{
+    height: 40px;
+    max-width: 80px;
+    padding: 5px;
+} 
+.requestRedirect button{
+    height: 40px;
+    max-width: 70px;
+    padding: 5px;
+}
+.requestRedirect input{
+    border-radius: 8px;
+    padding: 5px;
+    max-width: 200px;
+    margin-left: 20px;
+    border: 0.5px solid #ccc;
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+.requestRedirect input:focus{
+    border: 2px solid rgb(0, 140, 255);
+}
