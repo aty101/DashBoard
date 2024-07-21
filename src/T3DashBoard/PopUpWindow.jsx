@@ -1,5 +1,4 @@
 import Select from "react-select";
-import * as XLSX from "xlsx";
 
 import styles from "./styles/PopUpWindow.module.css";
 import { useEffect, useRef, useState } from "react";
@@ -230,7 +229,6 @@ function PopUpWindow({
           <div>
             <form>
               <input type="file" onChange={handleFileChange}></input>
-              
             </form>
           </div>
         )}

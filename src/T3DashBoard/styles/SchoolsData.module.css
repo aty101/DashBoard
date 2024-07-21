@@ -1,13 +1,16 @@
 .filters {
   top: 1%;
-
   margin: 0;
+  background-color: #014f86 !important;
+}
+.requestPage {
+  background-color: white;
 }
 .body {
   width: 74%;
   height: 100%;
   margin: auto;
-  border: 2px solid black;
+  border: 1px solid black;
   padding: 0;
 }
 
@@ -17,6 +20,7 @@
   height: 6vh;
   font-size: 19px;
   border-radius: 10px;
+  z-index: 10;
 }
 
 .searchBox {
@@ -63,8 +67,27 @@
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+  background-color: white;
 }
-.addButton:hover{
+.addButton:hover {
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.212);
+  background-color: lightgray;
+}
+
+.table tr {
+  border-color: #014f86;
+  margin: none;
+  border-right: none;
+  border-left: none;
+}
+.table th{
+  background-color: #e0e9f0;
+  color: #5489ae;
+  font-weight: bolder;
+}
+.table td{
+
+  color: #5489ae;
+  font-weight: bolder;
+  z-index: -1;
 }

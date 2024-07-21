@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap');
-* , html{
+* {
   font-family: "Noto Naskh Arabic", serif;
+
+}
+html{
+  background-color: white;
 }
 body {
   margin: 0;
-  background-color: gray;
+  background-color: white;
 }
 .App {
   

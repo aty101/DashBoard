@@ -5,13 +5,20 @@ import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 import AddSchooleWindow from "./PopUpWindow";
 import NavBar from "./NavBar";
+import Select from "react-select";
 
 function SchoolsData() {
   const cities = ["القاهرة", "القليوبية"];
   const [IDFilter, setIDFilter] = useState("");
-  const [cityFilter, setCityFilter] = useState();
+  const [cityFilter, setCityFilter] = useState("");
   const [openAddPage, setOpenAddPage] = useState(false);
 
+  const options = cities.map((ele) => {
+    return {
+      label: `${ele}`,
+      value: `${ele}`,
+    };
+  });
   const [data, setData] = useState([
     {
       name: "خالد بن الوليد",
@@ -37,12 +44,12 @@ function SchoolsData() {
       {/* Nav Bar */}
       <NavBar></NavBar>
 
-      <div className={`"${styles.requestPage} d-flex flex-column"`}>
+      <div className={`${styles.requestPage} d-flex flex-column`}>
         <div
           className={`d-flex flex-column justify-content-center mb-2 mt-2 ${styles.body}`}
         >
           <div
-            className={`navbar navbar-expand-lg bg-body-tertiary container-fluid ${styles.filters} `}
+            className={`navbar navbar-expand-lg bg-body-tertiary container-fluid  ${styles.filters} `}
           >
             <div className="container-fluid d-flex justify-content-around">
               <div className={`${styles.searchBox} d-flex  align-items-center`}>
@@ -55,21 +62,17 @@ function SchoolsData() {
                 ></input>
                 <FaSearch className={styles.icon}></FaSearch>
               </div>
-              <select
+              <Select
                 value={cityFilter}
-                onChange={(e) => {
-                  setCityFilter(e.target.value);
+                menuPortalTarget={document.body}
+                styles={{ menuPortal: (base) => ({ ...base, zIndex: 1 }) }}
+                placeholder="المحافظة"
+                options={options}
+                onChange={(val) => {
+                  setCityFilter(val);
                 }}
                 className={styles.city}
-              >
-                <option value={""} selected disabled hidden>
-                  المحافظة
-                </option>
-                <option value={"الكل"}>الكل</option>
-                {cities.map((item) => {
-                  return <option value={item}>{item}</option>;
-                })}
-              </select>
+              ></Select>
               <div
                 onClick={() => setOpenAddPage(true)}
                 className={styles.addButton}
@@ -79,7 +82,9 @@ function SchoolsData() {
             </div>
           </div>
           <div className="table mb-0">
-            <table className="table  mb-0   mt-0 table-bordered">
+            <table
+              className={`table  mb-0   mt-0 table-bordered ${styles.table}`}
+            >
               <thead>
                 <tr>
                   <th scope="col" className="text-center">
@@ -104,7 +109,8 @@ function SchoolsData() {
                   if (
                     (cityFilter != undefined &&
                       cityFilter != item.city &&
-                      cityFilter != "الكل") ||
+                      cityFilter != "الكل" &&
+                      cityFilter != "") ||
                     (IDFilter != "" && IDFilter != item.address)
                   )
                     return;
