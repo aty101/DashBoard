@@ -15,31 +15,32 @@
 }
 
 .city {
-  display: inline-block;
-  width: 15vh;
-  height: 6vh;
+  
+  display: flex;
+  align-items: center;
+  width: 18vh;
+  height: 5.5vh;
   font-size: 19px;
   border-radius: 10px;
-  z-index: 10;
+  
 }
 
 .searchBox {
   height: 6vh;
-  width: 25vw;
+  width: 22vw;
   border-radius: 30px;
   border: 2px solid black;
   background-color: white;
-  display: flex;
+ 
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
   -o-border-radius: 30px;
 }
 .search {
-  position: relative;
   padding: 0 10px;
   height: 100%;
-  width: 100%;
+  width: 90%;
   border-radius: 30px;
   outline: none;
   border: none;
@@ -49,7 +50,9 @@
   -o-border-radius: 30px;
 }
 .icon {
-  margin: 10px;
+
+margin-right: 8px;
+  
 }
 .search::placeholder {
   font-size: medium;
@@ -63,6 +66,7 @@
   border: 2px solid black;
   padding: 5px 10px;
   height: 6vh;
+  width: 10vw;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import Select from "react-select";
 
 import styles from "./styles/PopUpWindow.module.css";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 function PopUpWindow({
   type,
   setOpenAddPage,
@@ -36,24 +38,24 @@ function PopUpWindow({
     },
   ];
   const customStyles = {
-    control: (provided, state) => ({
+    control: (provided) => ({
       ...provided,
       borderColor: "black",
       height: "100%",
     }),
-    valueContainer: (provided, state) => ({
+    valueContainer: (provided) => ({
       ...provided,
       height: "100%",
     }),
-    input: (provided, state) => ({
+    input: (provided) => ({
       ...provided,
 
       height: "100%",
     }),
-    indicatorSeparator: (state) => ({
+    indicatorSeparator: () => ({
       display: "none",
     }),
-    indicatorsContainer: (provided, state) => ({
+    indicatorsContainer: (provided) => ({
       ...provided,
       height: "100%",
     }),
@@ -94,7 +96,7 @@ function PopUpWindow({
       data.push({
         name: schoolName,
         address: addressStudentsNumber,
-        city: "القاهرة",
+        city: cityDepName.value,
         departments: [],
         studentsNumber: studentsTeachersNumber,
       });

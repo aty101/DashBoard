@@ -1,5 +1,4 @@
-import SideBar from "./NavBar";
-import { FaPlus, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import styles from "./styles/SchoolsData.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
@@ -9,16 +8,9 @@ import Select from "react-select";
 
 function SchoolsData() {
   const cities = ["القاهرة", "القليوبية"];
-  const [IDFilter, setIDFilter] = useState("");
+  const [schoolNameFilter, setSchoolNameFilter] = useState("");
   const [cityFilter, setCityFilter] = useState("");
   const [openAddPage, setOpenAddPage] = useState(false);
-
-  const options = cities.map((ele) => {
-    return {
-      label: `${ele}`,
-      value: `${ele}`,
-    };
-  });
   const [data, setData] = useState([
     {
       name: "خالد بن الوليد",
@@ -35,6 +27,59 @@ function SchoolsData() {
       studentsNumber: 200,
     },
   ]);
+  const citiesStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: "none",
+      width: "100%",
+      height: "100%",
+      minHeight: "0",
+      minWidth: "0",
+      borderRadius: "30px",
+    }),
+    input: (provided) => ({
+      ...provided,
+      minHeight: "0",
+    }),
+  };
+  const schoolsStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: "none",
+      width: "100%",
+      height: "100%",
+      minHeight: "0",
+      minWidth: "0",
+      borderRadius: "30px",
+      boxShadow: "none",
+    }),
+    input: (provided) => ({
+      ...provided,
+      minHeight: "0",
+    }),
+    indicatorsContainer: (provided) => ({
+      ...provided,
+      display: "none",
+    }),
+  };
+
+  const citiesOptions = cities.map((ele) => {
+    return {
+      label: `${ele}`,
+      value: `${ele}`,
+    };
+  });
+  citiesOptions.push({
+    label: "الكل",
+    value: "الكل",
+  });
+  const schoolNamesOptions = data.map((ele) => {
+    return {
+      label: `${ele.name}`,
+      value: `${ele.name}`,
+    };
+  });
+
   const getData = () => {
     return data;
   };
@@ -53,21 +98,27 @@ function SchoolsData() {
           >
             <div className="container-fluid d-flex justify-content-around">
               <div className={`${styles.searchBox} d-flex  align-items-center`}>
-                <input
-                  value={IDFilter}
-                  onChange={(e) => setIDFilter(e.target.value)}
+                <Select
+                  options={schoolNamesOptions}
+                  value={schoolNameFilter}
+                  onChange={(e) => {
+                    setSchoolNameFilter(e);
+                    console.log(schoolNameFilter.value);
+                  }}
                   type="text"
                   className={styles.search}
                   placeholder="ابحث عن رقم المدرسة"
-                ></input>
+                  styles={schoolsStyles}
+                  menuPortalTarget={document.body}
+                ></Select>
                 <FaSearch className={styles.icon}></FaSearch>
               </div>
               <Select
                 value={cityFilter}
                 menuPortalTarget={document.body}
-                styles={{ menuPortal: (base) => ({ ...base, zIndex: 1 }) }}
+                styles={citiesStyles}
                 placeholder="المحافظة"
-                options={options}
+                options={citiesOptions}
                 onChange={(val) => {
                   setCityFilter(val);
                 }}
@@ -107,15 +158,18 @@ function SchoolsData() {
               <tbody>
                 {data.map((item, key) => {
                   if (
-                    (cityFilter != undefined &&
-                      cityFilter != item.city &&
-                      cityFilter != "الكل" &&
-                      cityFilter != "") ||
-                    (IDFilter != "" && IDFilter != item.address)
+                    (cityFilter.value != undefined &&
+                      cityFilter.value != item.city &&
+                      cityFilter.value != "الكل" &&
+                      cityFilter.value != "") ||
+                    (schoolNameFilter.value != "" &&
+                      schoolNameFilter.value != item.name &&
+                      schoolNameFilter.value != "الكل" &&
+                      schoolNameFilter.value != undefined)
                   )
                     return;
                   return (
-                    <tr>
+                    <tr key={key}>
                       <th scope="row">{key + 1}</th>
                       <td>{item.name}</td>
                       <td>{item.address}</td>
