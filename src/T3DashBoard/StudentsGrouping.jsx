@@ -101,8 +101,8 @@ function StudentsData() {
             </div>
           </div>
           <div className="table mb-0">
-            <table className="table  mb-0   mt-0 table-bordered">
-              <thead>
+            <table className={`table  mb-0   mt-0 table-bordered `}>
+              <thead className={styles.tableHead}>
                 <tr>
                   <th scope="col" className="text-center">
                     #

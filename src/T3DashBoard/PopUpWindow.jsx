@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import Select from "react-select";
-
 import styles from "./styles/PopUpWindow.module.css";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
+
+import ReadExcel from "./ReadExcelFile";
 function PopUpWindow({
   type,
   setOpenAddPage,
@@ -14,11 +15,7 @@ function PopUpWindow({
   setStudentsBackUp,
 }) {
   const data = getData();
-  const [file, setFile] = useState(null);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
   const schoolsOptions = [
     { value: "القاهرة", label: "القاهرة" },
     { value: "القليوبية", label: "القليوبية" },
@@ -77,7 +74,6 @@ function PopUpWindow({
           data[index].teachersNumber[cityDepName.value] =
             studentsTeachersNumber;
           addData(data);
-
           studentsBackUp[index] -= addressStudentsNumber;
           setStudentsBackUp(studentsBackUp);
           setSchoolName("");
@@ -143,30 +139,34 @@ function PopUpWindow({
               }}
               className={styles.navButtons}
             >
-              اضافة مجموعة مدارس
+              اضافة مجموعة
             </div>
           </nav>
         )}
         {swapContent && (
-          <form>
+          <form
+            className={`d-flex  flex-column justify-content-around align-items-center ${styles.form}`}
+          >
             {typeChange(true, false) && (
-              <input
-                onKeyDown={(e) => {
-                  if (e.key == "Escape") {
-                    setOpenAddPage(false);
-                  }
-                  if (e.key == "Enter") {
-                    handleDataChange();
-                  }
-                }}
-                value={schoolName}
-                ref={(el) => {
-                  inputTagsRef.current.push(el);
-                }}
-                onChange={(e) => setSchoolName(e.target.value)}
-                className={styles.addSchoolTag}
-                placeholder={"اسم المدرسة"}
-              ></input>
+              <div className={styles.addSchoolBox}>
+                <input
+                  onKeyDown={(e) => {
+                    if (e.key == "Escape") {
+                      setOpenAddPage(false);
+                    }
+                    if (e.key == "Enter") {
+                      handleDataChange();
+                    }
+                  }}
+                  value={schoolName}
+                  ref={(el) => {
+                    inputTagsRef.current.push(el);
+                  }}
+                  onChange={(e) => setSchoolName(e.target.value)}
+                  className={styles.addSchoolTag}
+                  placeholder={"اسم المدرسة"}
+                ></input>
+              </div>
             )}
             {typeChange(false, true) && (
               <div>{` عدد الطلاب المتبقي ${
@@ -180,44 +180,52 @@ function PopUpWindow({
                 }, 0)
               } `}</div>
             )}
-            <Select
-              value={cityDepName}
-              onChange={(selectedItem) => setCityDepName(selectedItem)}
-              className={styles.addSchoolTag}
-              placeholder={typeChange("المحافظة", "التخصص")}
-              options={typeChange(schoolsOptions, depOptions)}
-              styles={customStyles}
-            ></Select>
-            <input
-              value={addressStudentsNumber}
-              onKeyDown={(e) => {
-                if (e.key == "Enter") {
-                  handleDataChange();
-                }
-                if (e.key == "Escape") {
-                  setOpenAddPage(false);
-                }
-              }}
-              type={typeChange("text", "number")}
-              ref={(el) => {
-                inputTagsRef.current.push(el);
-              }}
-              onChange={(e) => setAddressStudentsNumber(e.target.value)}
-              className={styles.addSchoolTag}
-              placeholder={typeChange("العنوان", "عدد الطلاب")}
-            ></input>
-            <input
-              value={studentsTeachersNumber}
-              onKeyDown={(e) => (e.key == "Enter" ? handleDataChange() : "")}
-              type="number"
-              ref={(el) => {
-                inputTagsRef.current.push(el);
-              }}
-              onChange={(e) => setStudentsTeachersNumber(e.target.value)}
-              className={styles.addSchoolTag}
-              placeholder={typeChange("عدد الطلاب", "عدد المدرسين")}
-            ></input>
+            <div className={styles.addSchoolBox}>
+              <Select
+                menuPortalTarget={document.body}
+                value={cityDepName}
+                onChange={(selectedItem) => setCityDepName(selectedItem)}
+                className={styles.addSchoolTag}
+                placeholder={typeChange("المحافظة", "التخصص")}
+                options={typeChange(schoolsOptions, depOptions)}
+                styles={customStyles}
+              ></Select>
+            </div>
+            <div className={styles.addSchoolBox}>
+              <input
+                value={addressStudentsNumber}
+                onKeyDown={(e) => {
+                  if (e.key == "Enter") {
+                    handleDataChange();
+                  }
+                  if (e.key == "Escape") {
+                    setOpenAddPage(false);
+                  }
+                }}
+                type={typeChange("text", "number")}
+                ref={(el) => {
+                  inputTagsRef.current.push(el);
+                }}
+                onChange={(e) => setAddressStudentsNumber(e.target.value)}
+                className={styles.addSchoolTag}
+                placeholder={typeChange("العنوان", "عدد الطلاب")}
+              ></input>
+            </div>
+            <div className={styles.addSchoolBox}>
+              <input
+                value={studentsTeachersNumber}
+                onKeyDown={(e) => (e.key == "Enter" ? handleDataChange() : "")}
+                type="number"
+                ref={(el) => {
+                  inputTagsRef.current.push(el);
+                }}
+                onChange={(e) => setStudentsTeachersNumber(e.target.value)}
+                className={styles.addSchoolTag}
+                placeholder={typeChange("عدد الطلاب", "عدد المدرسين")}
+              ></input>
+            </div>
             <button
+              className={styles.addBtn}
               type="button"
               onClick={() => {
                 handleDataChange();
@@ -229,9 +237,7 @@ function PopUpWindow({
         )}
         {!swapContent && (
           <div>
-            <form>
-              <input type="file" onChange={handleFileChange}></input>
-            </form>
+            <ReadExcel></ReadExcel>
           </div>
         )}
       </div>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import AddSchooleWindow from "./PopUpWindow";
 import NavBar from "./NavBar";
 import Select from "react-select";
+import { citiesStyles, schoolsStyles } from "./styles/ReactSelectStyles";
 
 function SchoolsData() {
   const cities = ["القاهرة", "القليوبية"];
@@ -27,41 +28,6 @@ function SchoolsData() {
       studentsNumber: 200,
     },
   ]);
-  const citiesStyles = {
-    control: (provided) => ({
-      ...provided,
-      border: "none",
-      width: "100%",
-      height: "100%",
-      minHeight: "0",
-      minWidth: "0",
-      borderRadius: "30px",
-    }),
-    input: (provided) => ({
-      ...provided,
-      minHeight: "0",
-    }),
-  };
-  const schoolsStyles = {
-    control: (provided) => ({
-      ...provided,
-      border: "none",
-      width: "100%",
-      height: "100%",
-      minHeight: "0",
-      minWidth: "0",
-      borderRadius: "30px",
-      boxShadow: "none",
-    }),
-    input: (provided) => ({
-      ...provided,
-      minHeight: "0",
-    }),
-    indicatorsContainer: (provided) => ({
-      ...provided,
-      display: "none",
-    }),
-  };
 
   const citiesOptions = cities.map((ele) => {
     return {
@@ -101,9 +67,14 @@ function SchoolsData() {
                 <Select
                   options={schoolNamesOptions}
                   value={schoolNameFilter}
+                  onInputChange={(val) => {
+                    setSchoolNameFilter({
+                      label: val,
+                      value: val,
+                    });
+                  }}
                   onChange={(e) => {
                     setSchoolNameFilter(e);
-                    console.log(schoolNameFilter.value);
                   }}
                   type="text"
                   className={styles.search}
@@ -119,8 +90,8 @@ function SchoolsData() {
                 styles={citiesStyles}
                 placeholder="المحافظة"
                 options={citiesOptions}
-                onChange={(val) => {
-                  setCityFilter(val);
+                onChange={(e) => {
+                  setCityFilter(e);
                 }}
                 className={styles.city}
               ></Select>

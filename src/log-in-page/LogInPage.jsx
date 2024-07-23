@@ -77,7 +77,7 @@ function LogInPage() {
             <p className={styles.errorBox}>{errorMessage2}</p>
           </div>
           <div>
-            <button type="button" onClick={check}>
+            <button className={styles.logInBtn} type="button" onClick={check}>
               تسجيل دخول
             </button>
           </div>

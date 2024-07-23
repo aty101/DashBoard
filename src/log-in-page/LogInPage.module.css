@@ -13,8 +13,8 @@
 
 .contain {
   width: 30vw;
-
-  background-color: white;
+  border: 2px solid black;
+  background-color: #e0e9f0;
   border-radius: 40px;
   padding: 30px;
   -webkit-border-radius: 40px;
@@ -51,6 +51,7 @@
   -moz-border-radius: 40px;
   -ms-border-radius: 40px;
   -o-border-radius: 40px;
+  background-color: #e0e9f0;
 }
 
 .inputBox input::placeholder {
@@ -61,7 +62,7 @@
   left: 4%;
   top: 34%;
 }
-button {
+.logInBtn {
   width: 97%;
   height: 50px;
   margin: 15px auto 10px;
@@ -72,7 +73,7 @@ button {
   font-size: 25px;
   background-color: #014f86;
 }
-button:hover {
+.logInBtn:hover {
   background-color: #0360a3;
 }
 
