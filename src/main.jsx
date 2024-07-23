@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css"
 import LogInPage from "./log-in-page/LogInPage.jsx";
 import SideBar from "./T3DashBoard/SideBar.jsx";
 import StudentsData from "./T3DashBoard/StudentsData.jsx";
@@ -9,10 +10,11 @@ import AddSchooleWindow from "./T3DashBoard/AddSchooleWindow.jsx";
 import ShTolab from "./ShTolab/ShTolab.jsx";
 import App from "./App.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Books from "./Books/BooksManagement.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ShTolab />,
+    element: <Books/>,
   },
   {
     path: "home",

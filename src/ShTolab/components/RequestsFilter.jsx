@@ -8,7 +8,7 @@ const options = [
   { value: "مرفوضة", label: "مرفوضة" },
 ];
 
-const RequestsFilter = ({ id, setId, status, setStatus, }) => {
+const RequestsFilter = ({ id, setId, status, setStatus }) => {
   return (
     <div className={styles.requestFilterContainer}>
       <input
