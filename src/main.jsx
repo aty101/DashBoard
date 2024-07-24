@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import SideBar from "./T3DashBoard/NavBar.jsx";
-import StudentsData from "./T3DashBoard/StudentsGrouping.jsx";
-import SchoolsData from "./T3DashBoard/SchoolsData.jsx";
 
 import App from "./App.jsx";
+import NavBar from "./T3DashBoard/components/NavBar.jsx";
+import StudentsGrouping from "./T3DashBoard/components/StudentsGrouping.jsx";
+import SchoolsData from "./T3DashBoard/components/SchoolsData.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,18 +14,17 @@ const router = createBrowserRouter([
   },
   {
     path: "home",
-    element: <SideBar></SideBar>,
+    element: <NavBar></NavBar>,
   },
   {
     path: "groups",
-    element: <StudentsData></StudentsData>,
+    element: <StudentsGrouping></StudentsGrouping>,
   },
 
   {
     path: "schools",
     element: <SchoolsData></SchoolsData>,
   },
- 
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -1,19 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import Select from "react-select";
-import styles from "./styles/PopUpWindow.module.css";
-import { useRef, useState } from "react";
-
+import styles from "../styles/PopUpWindow.module.css";
+import { useEffect, useRef, useState } from "react";
 import ReadExcel from "./ReadExcelFile";
-function PopUpWindow({
-  type,
-  setOpenAddPage,
-  addData,
-  getData,
-  index,
-  studentsBackUp,
-  setStudentsBackUp,
-}) {
+import { popUpStyles } from "../styles/ReactSelectStyles";
+function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
   const data = getData();
 
   const schoolsOptions = [
@@ -34,54 +26,64 @@ function PopUpWindow({
       label: "3",
     },
   ];
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      borderColor: "black",
-      height: "100%",
-    }),
-    valueContainer: (provided) => ({
-      ...provided,
-      height: "100%",
-    }),
-    input: (provided) => ({
-      ...provided,
-
-      height: "100%",
-    }),
-    indicatorSeparator: () => ({
-      display: "none",
-    }),
-    indicatorsContainer: (provided) => ({
-      ...provided,
-      height: "100%",
-    }),
-  };
 
   const [schoolName, setSchoolName] = useState("");
   const [cityDepName, setCityDepName] = useState("");
   const [addressStudentsNumber, setAddressStudentsNumber] = useState("");
   const [studentsTeachersNumber, setStudentsTeachersNumber] = useState("");
   const [swapContent, setSwapContent] = useState(true);
+  const [dataStatus, setDataStatus] = useState(false);
+  const [dataStatusMessage, setDataStatusMessage] = useState("");
+
+  useEffect(()=>{
+    if (dataStatus) {
+      const timer = setTimeout(() => {
+        setDataStatus(false);
+      }, 2000); 
+
+      return () => clearTimeout(timer); 
+    }
+  },[dataStatus])
 
   const handleDataChange = () => {
     if (type != "addSchool") {
       {
-        const calc = data[index].totalStudents - addressStudentsNumber;
-
-        if (calc >= 0) {
-          data[index].studentsNumber[cityDepName.value] = addressStudentsNumber;
-          data[index].teachersNumber[cityDepName.value] =
+        const studentsCalc = data[index].totalStudents - addressStudentsNumber;
+        const teachersCalc = data[index].totalTeachers - studentsTeachersNumber;
+        if (
+          studentsCalc >= 0 &&
+          teachersCalc >= 0 &&
+          cityDepName != "" &&
+          cityDepName != undefined
+        ) {
+          if (
+            addressStudentsNumber != undefined &&
+            addressStudentsNumber != ""
+          ) {
+            data[index].studentsNumber[cityDepName.value] =
+              addressStudentsNumber;
+          }else{
+            data[index].studentsNumber[cityDepName.value] =
+              "لم يتم التحديد";
+          }
+          if (
+            studentsTeachersNumber != undefined &&
+            studentsTeachersNumber != ""
+          ) {
+            data[index].teachersNumber[cityDepName.value] =
             studentsTeachersNumber;
+          }else{
+            data[index].teachersNumber[cityDepName.value] =
+              "لم يتم التحديد";
+          }
+          
           addData(data);
-          studentsBackUp[index] -= addressStudentsNumber;
-          setStudentsBackUp(studentsBackUp);
           setSchoolName("");
           setCityDepName("");
           setAddressStudentsNumber("");
           setStudentsTeachersNumber("");
-
-          -addressStudentsNumber;
+          setDataStatus(true);
+          setDataStatusMessage(`تمت العملية بنجاح ✔`) - addressStudentsNumber;
           inputTagsRef.current.forEach((v, index) => {
             inputTagsRef.current[index].value = "";
           });
@@ -188,7 +190,7 @@ function PopUpWindow({
                 className={styles.addSchoolTag}
                 placeholder={typeChange("المحافظة", "التخصص")}
                 options={typeChange(schoolsOptions, depOptions)}
-                styles={customStyles}
+                styles={popUpStyles}
               ></Select>
             </div>
             <div className={styles.addSchoolBox}>
@@ -241,6 +243,9 @@ function PopUpWindow({
           </div>
         )}
       </div>
+      {dataStatus && (
+        <div className={styles.dataStatus}>{dataStatusMessage}</div>
+      )}
     </div>
   );
 }

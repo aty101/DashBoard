@@ -4,46 +4,46 @@
   background-color: #014f86 !important;
 }
 .body {
-  width: 74%;
+  width: 95%;
   height: 100%;
   margin: auto;
   border: 2px solid black;
   padding: 0;
 }
 
-.collage,
-.city {
-  display: inline-block;
-  width: 15vh;
-  height: 6vh;
+.cities {
+  display: flex;
+  align-items: center;
+  width: 49%;
+  height: 5.5vh;
   font-size: 19px;
-  border-radius: 10px;
+  
 }
 
 .searchBox {
   height: 6vh;
-  width: 25vw;
-  border-radius: 30px;
-  border: 2px solid black;
-  background-color: white;
+  width: 49%;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: #d9e5ed;
   display: flex;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 .search {
   position: relative;
   padding: 0 10px;
   height: 100%;
   width: 100%;
-  border-radius: 30px;
+  border-radius: 10px;
   outline: none;
   border: none;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 .icon {
   margin: 10px;
@@ -60,12 +60,14 @@
 .tableHead th {
   background-color: transparent; /* or #000 */
   user-select: none;
-  background-color: #e0e9f0;
-  color: #5489ae;
+  background-color: #264f86;
   font-weight: bolder;
+  border: none;
+  color: white;
+  
 }
 .tableHead tr {
-  border-color: #014f86;
+  border: none;
   margin: none;
   border-right: none;
   border-left: none;
@@ -76,7 +78,7 @@
   cursor: pointer;
 }
 .tableBody tr {
-  border-color: #014f86;
+  border-color: #edeff0;
   margin: none;
   border-right: none;
   border-left: none;
@@ -86,15 +88,16 @@
   user-select: none;
   padding: 0;
   text-align: center;
-  color: #5489ae;
-  font-weight: bolder;
+  color: #264f86;
+  border: none;
+  font-weight: normal;
   z-index: -1;
 }
 .tableBody th {
   background-color: transparent; /* or #000 */
   user-select: none;
-  background-color: #e0e9f0;
-  color: #5489ae;
+  border: none;
+  color: #264f86;
   font-weight: bolder;
 }
 
@@ -109,7 +112,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #dee2e6;
+  border: 0.1px solid #dee2e6;
   padding-right: 10px;
 }
 .cells {

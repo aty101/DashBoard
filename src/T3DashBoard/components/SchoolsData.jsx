@@ -1,50 +1,21 @@
 import { FaSearch } from "react-icons/fa";
-import styles from "./styles/SchoolsData.module.css";
+import styles from "../styles/SchoolsData.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 import AddSchooleWindow from "./PopUpWindow";
 import NavBar from "./NavBar";
 import Select from "react-select";
-import { citiesStyles, schoolsStyles } from "./styles/ReactSelectStyles";
+import { citiesStyles, schoolsStyles } from "../styles/ReactSelectStyles";
+import  {citiesOptions, schoolNamesOptions, schoolsData } from "../data/data";
 
 function SchoolsData() {
-  const cities = ["القاهرة", "القليوبية"];
+  
   const [schoolNameFilter, setSchoolNameFilter] = useState("");
   const [cityFilter, setCityFilter] = useState("");
   const [openAddPage, setOpenAddPage] = useState(false);
-  const [data, setData] = useState([
-    {
-      name: "خالد بن الوليد",
-      address: 1,
-      city: "القاهرة",
-      departments: [],
-      studentsNumber: 500,
-    },
-    {
-      name: "حلمية الزيتون",
-      address: 2,
-      city: "القليوبية",
-      departments: [],
-      studentsNumber: 200,
-    },
-  ]);
+  const [data, setData] = useState(schoolsData);
 
-  const citiesOptions = cities.map((ele) => {
-    return {
-      label: `${ele}`,
-      value: `${ele}`,
-    };
-  });
-  citiesOptions.push({
-    label: "الكل",
-    value: "الكل",
-  });
-  const schoolNamesOptions = data.map((ele) => {
-    return {
-      label: `${ele.name}`,
-      value: `${ele.name}`,
-    };
-  });
+  
 
   const getData = () => {
     return data;
@@ -68,6 +39,7 @@ function SchoolsData() {
                   options={schoolNamesOptions}
                   value={schoolNameFilter}
                   onInputChange={(val) => {
+                    
                     setSchoolNameFilter({
                       label: val,
                       value: val,
@@ -78,7 +50,7 @@ function SchoolsData() {
                   }}
                   type="text"
                   className={styles.search}
-                  placeholder="ابحث عن رقم المدرسة"
+                  placeholder="ابحث باستخدام اسم المدرسة"
                   styles={schoolsStyles}
                   menuPortalTarget={document.body}
                 ></Select>
@@ -105,9 +77,9 @@ function SchoolsData() {
           </div>
           <div className="table mb-0">
             <table
-              className={`table  mb-0   mt-0 table-bordered ${styles.table}`}
+              className={`table  mb-0   mt-0  `}
             >
-              <thead>
+              <thead className={styles.thead}>
                 <tr>
                   <th scope="col" className="text-center">
                     #
@@ -126,7 +98,7 @@ function SchoolsData() {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className={styles.tbody}>
                 {data.map((item, key) => {
                   if (
                     (cityFilter.value != undefined &&
@@ -141,11 +113,11 @@ function SchoolsData() {
                     return;
                   return (
                     <tr key={key}>
-                      <th scope="row">{key + 1}</th>
-                      <td>{item.name}</td>
-                      <td>{item.address}</td>
-                      <td>{item.city}</td>
-                      <td>{item.studentsNumber}</td>
+                      <th className="text-center align-middle" scope="row">{key + 1}</th>
+                      <td className="text-center align-middle">{item.name}</td>
+                      <td className="text-center align-middle">{item.address}</td>
+                      <td className="text-center align-middle">{item.city}</td>
+                      <td className="text-center align-middle">{item.totalStudents}</td>
                     </tr>
                   );
                 })}

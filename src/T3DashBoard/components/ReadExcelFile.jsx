@@ -1,5 +1,5 @@
 import { useDropzone } from "react-dropzone";
-import styles from "./styles/ReadExcelFile.module.css";
+import styles from "../styles/ReadExcelFile.module.css";
 function ReadExcel() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: [

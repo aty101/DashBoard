@@ -1,49 +1,24 @@
-import NavBar from "./NavBar";
 import { FaSearch } from "react-icons/fa";
-import styles from "./styles/StudentsGrouping.module.css";
+import styles from "../styles/StudentsGrouping.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 import PopUpWindow from "./PopUpWindow";
+import NavBar from "./NavBar";
+import  {
+  citiesOptions,
+  cities,
+  schoolNamesOptions,
+  schoolsData,
+} from "../data/data";
+import Select from "react-select";
+import { citiesStyles, schoolsStyles } from "../styles/ReactSelectStyles";
 
-const cities = ["القاهرة", "القليوبية", "الاسكندرية"];
-
-function StudentsData() {
-  const [IDFilter, setIDFilter] = useState("");
-  const [cityFilter, setCityFilter] = useState();
+function StudentsGrouping() {
+  const [nameFilter, setNameFilter] = useState("");
+  const [cityFilter, setCityFilter] = useState("");
   const [openPopUpWindow, setOpenPopUpWindow] = useState(false);
   const [index, setIndex] = useState();
-  const [data, setData] = useState([
-    {
-      name: "أ",
-      ID: 1,
-      city: "القاهرة",
-      departments: ["1", "2", "3"],
-      studentsNumber: ["لم يتم التحديد", "لم يتم التحديد", "لم يتم التحديد"],
-      teachersNumber: ["لم يتم التحديد", "لم يتم التحديد", "لم يتم التحديد"],
-      totalStudents: 190,
-      totalTeachers: 190,
-    },
-    {
-      name: "ب",
-      ID: 2,
-      city: "القليوبية",
-      departments: ["1", "2", "3"],
-      studentsNumber: ["لم يتم التحديد", "لم يتم التحديد", "لم يتم التحديد"],
-      teachersNumber: ["لم يتم التحديد", "لم يتم التحديد", "لم يتم التحديد"],
-      totalStudents: 190,
-      totalTeachers: 190,
-    },
-    {
-      name: "ث",
-      ID: 3,
-      city: "الاسكندرية",
-      departments: ["1", "2", "3"],
-      studentsNumber: ["لم يتم التحديد", "لم يتم التحديد", "لم يتم التحديد"],
-      teachersNumber: ["لم يتم التحديد", "لم يتم التحديد", "لم يتم التحديد"],
-      totalStudents: 190,
-      totalTeachers: 190,
-    },
-  ]);
+  const [data, setData] = useState(schoolsData);
   const openClosePage = () => {
     setOpenPopUpWindow(!openPopUpWindow);
   };
@@ -57,11 +32,7 @@ function StudentsData() {
     openClosePage();
     setIndex(i);
   };
-  const [backUp, setBackUp] = useState(
-    data.map((v, key) => {
-      return v.studentsNumber;
-    })
-  );
+
   return (
     <>
       <NavBar></NavBar>
@@ -74,21 +45,35 @@ function StudentsData() {
           >
             <div className="container-fluid d-flex justify-content-around">
               <div className={`${styles.searchBox} d-flex  align-items-center`}>
-                <input
-                  value={IDFilter}
-                  onChange={(e) => setIDFilter(e.target.value)}
+                <Select
+                  styles={schoolsStyles}
+                  value={nameFilter}
+                  options={schoolNamesOptions}
+                  onInputChange={(val) => {
+                    
+                    setNameFilter({
+                      label: val,
+                      value: val,
+                    });
+                  }}
+                  onChange={(e) => setNameFilter(e)}
                   type="text"
                   className={styles.search}
-                  placeholder="ابحث بإستخدام رقم المدرسة"
-                ></input>
+                  placeholder="ابحث بإستخدام اسم المدرسة"
+                  menuPortalTarget={document.body}
+                ></Select>
                 <FaSearch className={styles.icon}></FaSearch>
               </div>
-              <select
+              <Select
+                menuPortalTarget={document.body}
+                styles={citiesStyles}
+                placeholder="المحافظة"
+                options={citiesOptions}
                 value={cityFilter}
                 onChange={(e) => {
-                  setCityFilter(e.target.value);
+                  setCityFilter(e);
                 }}
-                className={styles.city}
+                className={styles.cities}
               >
                 <option value={""} selected disabled hidden>
                   المحافظة
@@ -97,11 +82,11 @@ function StudentsData() {
                 {cities.map((item) => {
                   return <option value={item}>{item}</option>;
                 })}
-              </select>
+              </Select>
             </div>
           </div>
           <div className="table mb-0">
-            <table className={`table  mb-0   mt-0 table-bordered `}>
+            <table className={`table  mb-0   mt-0  `}>
               <thead className={styles.tableHead}>
                 <tr>
                   <th scope="col" className="text-center">
@@ -130,17 +115,18 @@ function StudentsData() {
               <tbody className={styles.tableBody}>
                 {data.map((item, key) => {
                   if (
-                    (cityFilter != undefined &&
-                      cityFilter != item.city &&
-                      cityFilter != "الكل") ||
-                    (IDFilter != "" && IDFilter != item.ID)
+                    (cityFilter.value != undefined &&
+                      cityFilter.value != "" &&
+                      cityFilter.value != item.city &&
+                      cityFilter.value != "الكل") ||
+                    (nameFilter.value != "" && nameFilter.value != undefined && nameFilter.value != item.name)
                   ) {
                     return;
                   }
                   return (
                     <>
                       <tr onClick={() => openPage(key)}>
-                        <th scope="row" className="text-center">
+                        <th scope="row" className="text-center align-middle">
                           {key + 1}
                         </th>
                         <td className="text-center align-middle">
@@ -197,11 +183,9 @@ function StudentsData() {
           getData={getData}
           addData={addData}
           index={index}
-          studentsBackUp={backUp}
-          setStudentsBackUp={setBackUp}
         ></PopUpWindow>
       )}
     </>
   );
 }
-export default StudentsData;
+export default StudentsGrouping;

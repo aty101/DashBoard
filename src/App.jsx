@@ -1,8 +1,5 @@
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
-
 import LogInPage from "./log-in-page/LogInPage";
-import SideBar from "./T3DashBoard/NavBar";
 function App() {
   return (
     <>
