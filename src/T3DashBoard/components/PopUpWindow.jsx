@@ -8,11 +8,11 @@ import { popUpStyles } from "../styles/ReactSelectStyles";
 function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
   const data = getData();
 
-  const schoolsOptions = [
+  const schools = [
     { value: "القاهرة", label: "القاهرة" },
     { value: "القليوبية", label: "القليوبية" },
   ];
-  const depOptions = [
+  const departments = [
     {
       value: 0,
       label: "1",
@@ -34,16 +34,17 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
   const [swapContent, setSwapContent] = useState(true);
   const [dataStatus, setDataStatus] = useState(false);
   const [dataStatusMessage, setDataStatusMessage] = useState("");
+  const [dataStatusIcon, setDataStatusIcon] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     if (dataStatus) {
       const timer = setTimeout(() => {
         setDataStatus(false);
-      }, 2000); 
+      }, 2000);
 
-      return () => clearTimeout(timer); 
+      return () => clearTimeout(timer);
     }
-  },[dataStatus])
+  }, [dataStatus]);
 
   const handleDataChange = () => {
     if (type != "addSchool") {
@@ -62,50 +63,81 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
           ) {
             data[index].studentsNumber[cityDepName.value] =
               addressStudentsNumber;
-          }else{
-            data[index].studentsNumber[cityDepName.value] =
-              "لم يتم التحديد";
           }
+          // else if( data[index].studentsNumber[cityDepName.value] != "لم يتم التحديد"){
+          //   data[index].studentsNumber[cityDepName.value] = "لم يتم التحديد";
+          // }
           if (
             studentsTeachersNumber != undefined &&
             studentsTeachersNumber != ""
           ) {
             data[index].teachersNumber[cityDepName.value] =
-            studentsTeachersNumber;
-          }else{
-            data[index].teachersNumber[cityDepName.value] =
-              "لم يتم التحديد";
+              studentsTeachersNumber;
           }
-          
+          // else if(data[index].teachersNumber[cityDepName.value] != "لم يتم التحديد"){
+          //   data[index].teachersNumber[cityDepName.value] = "لم يتم التحديد";
+          // }
+
           addData(data);
           setSchoolName("");
           setCityDepName("");
           setAddressStudentsNumber("");
           setStudentsTeachersNumber("");
           setDataStatus(true);
-          setDataStatusMessage(`تمت العملية بنجاح ✔`) - addressStudentsNumber;
+          setDataStatusMessage(`تمت الإضافة بنجاح `);
+          setDataStatusIcon("✔");
           inputTagsRef.current.forEach((v, index) => {
             inputTagsRef.current[index].value = "";
           });
         } else {
+          setDataStatus(true);
+          setDataStatusMessage("برجاء التأكد من ملئ جميع الحقول");
+          setDataStatusIcon("✖");
         }
       }
     } else {
-      data.push({
-        name: schoolName,
-        address: addressStudentsNumber,
-        city: cityDepName.value,
-        departments: [],
-        studentsNumber: studentsTeachersNumber,
-      });
-      addData(data);
-      setSchoolName("");
-      setCityDepName("");
-      setAddressStudentsNumber("");
-      setStudentsTeachersNumber("");
-      inputTagsRef.current.forEach((v, index) => {
-        inputTagsRef.current[index].value = "";
-      });
+      if (
+        schoolName != "" &&
+        cityDepName != "" &&
+        addressStudentsNumber != "" &&
+        studentsTeachersNumber != ""
+      ) {
+        data.push({
+          name: schoolName,
+          ID: 2,
+          address: addressStudentsNumber,
+          city: cityDepName.value,
+          departments: ["1", "2", "3"],
+          studentsNumber: [
+            "لم يتم التحديد",
+            "لم يتم التحديد",
+            "لم يتم التحديد",
+          ],
+          teachersNumber: [
+            "لم يتم التحديد",
+            "لم يتم التحديد",
+            "لم يتم التحديد",
+          ],
+          totalStudents: studentsTeachersNumber,
+          totalTeachers: 190,
+        });
+
+        addData(data);
+        setSchoolName("");
+        setCityDepName("");
+        setAddressStudentsNumber("");
+        setStudentsTeachersNumber("");
+        setDataStatus(true);
+        setDataStatusMessage("تمت الإضافة بنجاح");
+        setDataStatusIcon("✔");
+        inputTagsRef.current.forEach((v, index) => {
+          inputTagsRef.current[index].value = "";
+        });
+      } else {
+        setDataStatus(true);
+        setDataStatusMessage("برجاء التأكد من ملئ جميع الحقول");
+        setDataStatusIcon("✖");
+      }
     }
   };
 
@@ -171,7 +203,7 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
               </div>
             )}
             {typeChange(false, true) && (
-              <div>{` عدد الطلاب المتبقي ${
+              <div className={styles.remainingBox}>{` عدد الطلاب المتبقي ${
                 data[index].totalStudents -
                 data[index].studentsNumber.reduce((total, num) => {
                   if (num === "لم يتم التحديد") {
@@ -182,14 +214,25 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
                 }, 0)
               } `}</div>
             )}
+            {typeChange(false, true) && (
+              <div className={styles.remainingBox}>{` عدد المدرسين المتبقي ${
+                data[index].totalTeachers -
+                data[index].teachersNumber.reduce((total, num) => {
+                  if (num === "لم يتم التحديد") {
+                    return total + 0;
+                  } else {
+                    return total + parseInt(num);
+                  }
+                }, 0)
+              } `}</div>
+            )}
             <div className={styles.addSchoolBox}>
               <Select
-                menuPortalTarget={document.body}
                 value={cityDepName}
                 onChange={(selectedItem) => setCityDepName(selectedItem)}
                 className={styles.addSchoolTag}
                 placeholder={typeChange("المحافظة", "التخصص")}
-                options={typeChange(schoolsOptions, depOptions)}
+                options={typeChange(schools, departments)}
                 styles={popUpStyles}
               ></Select>
             </div>
@@ -244,7 +287,22 @@ function PopUpWindow({ type, setOpenAddPage, addData, getData, index }) {
         )}
       </div>
       {dataStatus && (
-        <div className={styles.dataStatus}>{dataStatusMessage}</div>
+        <div
+          style={{ height: dataStatus ? "11vh" : "0" }}
+          className={styles.dataStatus}
+        >
+          <span className={`${styles.dataStatusMessage}`}>
+            {dataStatusMessage}
+          </span>
+          <span
+            style={{
+              backgroundColor: dataStatusIcon == "✔" ? "#00a100" : "red",
+            }}
+            className={`${styles.dataStatusMessage} ${styles.dataStatusMessageIcon}`}
+          >
+            {dataStatusIcon}
+          </span>
+        </div>
       )}
     </div>
   );

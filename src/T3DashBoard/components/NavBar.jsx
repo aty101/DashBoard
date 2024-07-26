@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 function NavBar() {
   const location = useLocation();
-  console.log(location)
+
   return (
     <div className="navbar navbar-expand-lg bg-body-tertiary">
       <div className={styles.body}>

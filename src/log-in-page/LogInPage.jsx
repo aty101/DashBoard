@@ -39,7 +39,7 @@ function LogInPage() {
     <div className={styles.wrapper}>
       <div className={styles.contain}>
         <form action="">
-          <h1>مرحبا في جامعة الازهر</h1>
+          <h2>مرحبا في جامعة الازهر</h2>
           <div
             className={styles.inputBox}
             style={{ borderColor: error1Show ? "red" : "black" }}
