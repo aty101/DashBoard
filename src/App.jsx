@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useQuery } from "react-query";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+async function fetchData(api) {
+  const res = await fetch(api);
+  const data = await res.json();
+  return JSON.parse(data[0].jsonData);
 }
 
-export default App
+function App() {
+  const { data: sections } = useQuery("sections", () =>
+    fetchData("https://educationapi.mygatein.com/Lookup/GetSections")
+  );
+
+  const { data: groups } = useQuery("groups", () =>
+    fetchData("https://educationapi.mygatein.com/Lookup/GetGroups")
+  );
+  const { data: cities } = useQuery("cities", () =>
+    fetchData("https://educationapi.mygatein.com/Lookup/GetCities")
+  );
+
+  const { data: placeData } = useQuery(
+    "placeData",
+    () =>
+      fetchData(
+        `https://educationapi.mygatein.com/Student/GetPlaces?PlacesData={"CityId":${
+          cities[0].CityId
+        },"SectionId":${sections[0].SectionId},"StageId":${1}`
+      ),
+    {
+      enabled: !!cities && !!sections,
+    }
+  );
+
+  return <button onClick={() => console.log(placeData)}>qwfqwf</button>;
+}
+
+export default App;
