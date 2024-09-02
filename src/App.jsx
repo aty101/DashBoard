@@ -1,37 +1,107 @@
-import { useQuery } from "react-query";
-
-async function fetchData(api) {
-  const res = await fetch(api);
-  const data = await res.json();
-  return JSON.parse(data[0].jsonData);
-}
+import { useState } from "react";
+import Selector from "./components/Selector";
+import Button from "./components/Button";
+import Table from "./components/Table";
+import { useCities } from "./dataHooks/useCities";
+import { useSections } from "./dataHooks/useSections";
+import { useGroups } from "./dataHooks/useGroups";
+import { usePlaceData } from "./dataHooks/usePlaceData";
+import { useStudentsData } from "./dataHooks/useStudentsData";
 
 function App() {
-  const { data: sections } = useQuery("sections", () =>
-    fetchData("https://educationapi.mygatein.com/Lookup/GetSections")
+  const [groupId, setGroupId] = useState("");
+  const [sectionId, setSectionId] = useState("");
+  const [cityId, setCityId] = useState("");
+  const [placeId, setPlaceId] = useState("");
+  const [stageId, setStageId] = useState("");
+  const { cities, citiesIsLoading } = useCities();
+  const { sections, sectionIsLoading } = useSections();
+  const { groups, groupIsLoading } = useGroups();
+  const { placeData, placeIsSuccess } = usePlaceData(
+    cityId,
+    sectionId,
+    stageId
   );
+  const { filteredStudents, filteredStudentsIsSuccess } = useStudentsData({
+    placeId,
+    groupId,
+    sectionId,
+    stageId,
+  });
+  let citiesOptions;
+  let sectionOptions;
+  let groupOptions;
+  let placeOptions;
 
-  const { data: groups } = useQuery("groups", () =>
-    fetchData("https://educationapi.mygatein.com/Lookup/GetGroups")
-  );
-  const { data: cities } = useQuery("cities", () =>
-    fetchData("https://educationapi.mygatein.com/Lookup/GetCities")
-  );
+  if (filteredStudentsIsSuccess) {
+    console.log(filteredStudents);
+  }
 
-  const { data: placeData } = useQuery(
-    "placeData",
-    () =>
-      fetchData(
-        `https://educationapi.mygatein.com/Student/GetPlaces?PlacesData={"CityId":${
-          cities[0].CityId
-        },"SectionId":${sections[0].SectionId},"StageId":${1}`
-      ),
-    {
-      enabled: !!cities && !!sections,
-    }
-  );
+  if (!citiesIsLoading) {
+    citiesOptions = cities.map((item) => {
+      return {
+        value: item.CityId,
+        label: item.Name_A,
+      };
+    });
+  }
+  if (!sectionIsLoading) {
+    sectionOptions = sections.map((item) => {
+      return {
+        value: item.SectionId,
+        label: item.SectionName,
+      };
+    });
+  }
+  if (!groupIsLoading) {
+    groupOptions = groups.map((item) => {
+      return {
+        value: item.GroupsId,
+        label: item.GroupsNameAr,
+      };
+    });
+  }
+  if (placeIsSuccess) {
+    placeOptions = placeData.map((item) => {
+      return {
+        value: item.PlaceCategoryId,
+        label: item.PlaceAddress,
+      };
+    });
+  }
+  const stageOptions = [
+    { label: "مرحلة ثانية", value: 2 },
+    { label: "مرحلة ثالثة", value: 3 },
+  ];
+  return (
+    <div className="w-full h-[100dvh]  bg-stone-600 py-8 px-4">
+      <div className="bg-white w-full h-full py-6 px-3 bg flex flex-col gap-3">
+        <div className="flex justify-start items-center gap-2">
+          <Button>تصدير ملف PDF</Button>
+          <Button>طباعة</Button>
+        </div>
+        <form className="flex flex-wrap items-center ">
+          <Selector options={citiesOptions} setter={setCityId}>
+            تصفية حسب المنطقة
+          </Selector>
+          <Selector options={sectionOptions} setter={setSectionId}>
+            تصفية حسب القسم
+          </Selector>
+          <Selector options={stageOptions} setter={setStageId}>
+            تصفية حسب المرحلة
+          </Selector>
 
-  return <button onClick={() => console.log(placeData)}>qwfqwf</button>;
+          <Selector options={placeOptions} setter={setPlaceId}>
+            تصفية حسب المكان
+          </Selector>
+          <Selector options={groupOptions} setter={setGroupId}>
+            تصفية حسب المجموعة
+          </Selector>
+        </form>
+        {!!filteredStudents && <Table></Table>}
+      </div>
+    </div>
+  );
 }
 
 export default App;
