@@ -1,7 +1,8 @@
 import { baseURL } from "../baseURL";
+import  axios  from 'axios';
 
 export async function groupsFetch() {
-    const res = await fetch(baseURL + "Lookup/GetGroups");
-    const data = await res.json();
-    return JSON.parse(data[0].jsonData);
+    const res = await axios.get(baseURL + "Lookup/GetGroups");
+    
+    return JSON.parse(res.data[0].jsonData);
   }

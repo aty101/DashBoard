@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { placeDataFetch } from "../helperFunctions/placeDataFetch";
 
 export function usePlaceData(cityId, sectionId, stageId) {
@@ -6,13 +6,11 @@ export function usePlaceData(cityId, sectionId, stageId) {
     data: placeData,
     isSuccess: placeIsSuccess,
     error,
-  } = useQuery(
-    ["placeData", cityId, sectionId,stageId],
-    () => placeDataFetch(cityId, sectionId, stageId),
-    {
-      enabled: !!cityId && !!sectionId && !!stageId,
-    }
-  );
+  } = useQuery({
+    queryKey: ["placeData", cityId, sectionId, stageId],
+    queryFn: () => placeDataFetch(cityId, sectionId, stageId),
+    enabled: !!cityId && !!sectionId && !!stageId,
+  });
   if (error) {
     console.log("usePlaceData");
   }

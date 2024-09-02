@@ -1,7 +1,7 @@
+import axios from "axios";
 import { baseURL } from "../baseURL";
 
 export async function sectionsFetch() {
-  const res = await fetch(baseURL + "Lookup/GetSections");
-  const data = await res.json();
-  return JSON.parse(data[0].jsonData);
+  const res = await axios.get(baseURL + "Lookup/GetSections");
+  return JSON.parse(res.data[0].jsonData);
 }

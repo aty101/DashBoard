@@ -1,11 +1,11 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { sectionsFetch } from "../helperFunctions/sectionsFetch";
 
-export  function useSections(){
-    const { data: sections, isLoading: sectionIsLoading } = useQuery(
-        "sections",
-        sectionsFetch
-      );
-      
-    return {sections,sectionIsLoading}
+export function useSections() {
+  const { data: sections, isLoading: sectionIsLoading } = useQuery({
+    queryKey: ["sections"],
+    queryFn: sectionsFetch,
+  });
+
+  return { sections, sectionIsLoading };
 }

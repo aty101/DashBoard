@@ -9,6 +9,7 @@ export default function Selector({ options, setter, children }) {
         options={options}
         onChange={(e) => {
           setter(e.value);
+          console.log(e.value)
         }}
       ></Select>
     </div>
