@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Selector from "./components/Selector";
 import Button from "./components/Button";
 import Table from "./components/Table";
@@ -7,14 +7,20 @@ import { useSections } from "./dataHooks/useSections";
 import { useGroups } from "./dataHooks/useGroups";
 import { usePlaceData } from "./dataHooks/usePlaceData";
 import { useStudentsData } from "./dataHooks/useStudentsData";
-
+import { convertToPdf } from "./helper/pdf";
+import { useReactToPrint } from "react-to-print";
 function MainComp() {
   const [{ groupId, sectionId, cityId, placeId, stageId }, setState] = useState(
     { groupId: "", sectionId: "", cityId: "", placeId: "", stageId: "" }
   );
+  const ref = useRef("");
   function handleSelect(name, selectedOption) {
     setState((prev) => ({ ...prev, [name]: selectedOption }));
   }
+
+  const handleToPrint = useReactToPrint({
+    content: () => ref.current,
+  });
 
   const citiesOptions = useCities();
   const sectionOptions = useSections();
@@ -39,8 +45,8 @@ function MainComp() {
     <div className="w-full h-[100dvh]  bg-stone-600 py-8 px-4">
       <div className="bg-white w-full h-full py-6 px-3 bg flex flex-col gap-3 lg:gap-8">
         <div className="flex justify-start items-center flex-wrap gap-4 ">
-          <Button>تصدير ملف PDF</Button>
-          <Button>طباعة</Button>
+          <Button func={() => convertToPdf(ref)}>تصدير ملف PDF</Button>
+          <Button func={handleToPrint}>طباعة</Button>
         </div>
         <form className="flex flex-wrap items-center ">
           <Selector
@@ -62,12 +68,15 @@ function MainComp() {
             label={"تصفية حسب المرحلة"}
           ></Selector>
 
-          { <Selector
-            val={placeId}
-            options={placeOptions}
-            setter={(e) => handleSelect("placeId", e)}
-            label={"تصفية حسب المكان"}
-          ></Selector>}
+          {
+            <Selector
+              val={placeId}
+              options={placeOptions}
+              setter={(e) => handleSelect("placeId", e)}
+              label={"تصفية حسب المكان"}
+              disabled={!(!!stageId && !!cityId && !!sectionId)}
+            ></Selector>
+          }
           <Selector
             val={groupId}
             options={groupOptions}
@@ -76,7 +85,7 @@ function MainComp() {
           ></Selector>
         </form>
         {!!filteredStudents && filteredStudents.length !== 0 ? (
-          <Table data={filteredStudents}></Table>
+          <Table reference={ref} data={filteredStudents}></Table>
         ) : null}
       </div>
     </div>

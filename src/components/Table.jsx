@@ -1,9 +1,13 @@
 import { PiPencilLineDuotone } from "react-icons/pi";
 import Th from "./Th";
 
-function Table({ data }) {
+function Table({ data, reference }) {
   return (
-    <table className="overflow-hidden rounded-t-lg table-auto mx-0 sm:mx-5 shadow-md">
+    <table
+      ref={reference}
+      dir="rtl"
+      className="overflow-hidden rounded-t-lg table-auto mx-0 sm:mx-5 shadow-md print:mx-auto print:mt-36 print:w-[90%] "
+    >
       <thead className="bg-sky-800 rounded-t-lg">
         <tr>
           <Th>الاسم</Th>
@@ -21,7 +25,11 @@ function Table({ data }) {
               <td className="data-cell">{item.facultyName}</td>
               <td className="data-cell">{item.statusName}</td>
               <td className="data-cell">{item.regular}</td>
-              <td className="data-cell"><button className="border border-sky-950 p-2 rounded-md shadow-sm"><PiPencilLineDuotone /></button></td>
+              <td className="data-cell">
+                <button className="border border-sky-950 p-2 rounded-md shadow-sm">
+                  <PiPencilLineDuotone />
+                </button>
+              </td>
             </tr>
           );
         })}
