@@ -45,10 +45,16 @@ function MainComp() {
     <div className="w-full h-[100dvh]  bg-stone-600 py-8 px-4">
       <div className="bg-white w-full h-full py-6 px-3 bg flex flex-col gap-3 lg:gap-8">
         <div className="flex justify-start items-center flex-wrap gap-4 ">
-          <Button disabled={ref === ""} func={() => convertToPdf(ref)}>
+          <Button
+            disabled={!!filteredStudents && filteredStudents.length !== 0}
+            func={() => convertToPdf(ref)}
+          >
             تصدير ملف PDF
           </Button>
-          <Button disabled={ref === ""} func={handleToPrint}>
+          <Button
+            disabled={!!filteredStudents && filteredStudents.length !== 0}
+            func={handleToPrint}
+          >
             طباعة
           </Button>
         </div>
