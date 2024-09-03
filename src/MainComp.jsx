@@ -9,11 +9,13 @@ import { usePlaceData } from "./dataHooks/usePlaceData";
 import { useStudentsData } from "./dataHooks/useStudentsData";
 
 function MainComp() {
-  const [groupId, setGroupId] = useState("");
-  const [sectionId, setSectionId] = useState("");
-  const [cityId, setCityId] = useState("");
-  const [placeId, setPlaceId] = useState("");
-  const [stageId, setStageId] = useState("");
+  const [{ groupId, sectionId, cityId, placeId, stageId }, setState] = useState(
+    { groupId: "", sectionId: "", cityId: "", placeId: "", stageId: "" }
+  );
+  function handleSelect(name, selectedOption) {
+    setState((prev) => ({ ...prev, [name]: selectedOption }));
+  }
+
   const citiesOptions = useCities();
   const sectionOptions = useSections();
   const groupOptions = useGroups();
@@ -35,8 +37,8 @@ function MainComp() {
   ];
   return (
     <div className="w-full h-[100dvh]  bg-stone-600 py-8 px-4">
-      <div className="bg-white w-full h-full py-6 px-3 bg flex flex-col gap-3">
-        <div className="flex justify-start items-center flex-wrap gap-2">
+      <div className="bg-white w-full h-full py-6 px-3 bg flex flex-col gap-3 lg:gap-8">
+        <div className="flex justify-start items-center flex-wrap gap-4 ">
           <Button>تصدير ملف PDF</Button>
           <Button>طباعة</Button>
         </div>
@@ -44,32 +46,32 @@ function MainComp() {
           <Selector
             val={cityId}
             options={citiesOptions}
-            setter={setCityId}
+            setter={(e) => handleSelect("cityId", e)}
             label={"تصفية حسب المنطقة"}
           ></Selector>
           <Selector
             val={sectionId}
             options={sectionOptions}
-            setter={setSectionId}
+            setter={(e) => handleSelect("sectionId", e)}
             label={" تصفية حسب القسم"}
           ></Selector>
           <Selector
             val={stageId}
             options={stageOptions}
-            setter={setStageId}
+            setter={(e) => handleSelect("stageId", e)}
             label={"تصفية حسب المرحلة"}
           ></Selector>
 
-          <Selector
+          { <Selector
             val={placeId}
             options={placeOptions}
-            setter={setPlaceId}
+            setter={(e) => handleSelect("placeId", e)}
             label={"تصفية حسب المكان"}
-          ></Selector>
+          ></Selector>}
           <Selector
             val={groupId}
             options={groupOptions}
-            setter={setGroupId}
+            setter={(e) => handleSelect("groupId", e)}
             label={"تصفية حسب المجموعة"}
           ></Selector>
         </form>
