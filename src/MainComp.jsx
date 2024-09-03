@@ -14,66 +14,24 @@ function MainComp() {
   const [cityId, setCityId] = useState("");
   const [placeId, setPlaceId] = useState("");
   const [stageId, setStageId] = useState("");
-  const { cities, citiesIsLoading } = useCities();
-  const { sections, sectionIsLoading } = useSections();
-  const { groups, groupIsLoading } = useGroups();
-  const { placeData, placeIsSuccess } = usePlaceData(
-    cityId,
-    sectionId,
-    stageId
+  const citiesOptions = useCities();
+  const sectionOptions = useSections();
+  const groupOptions = useGroups();
+  const placeOptions = usePlaceData(
+    cityId.value,
+    sectionId.value,
+    stageId.value
   );
-  const { filteredStudents, filteredStudentsIsSuccess } = useStudentsData(
-    placeId,
-    sectionId,
-    stageId,
-    groupId,
-    5,
-    1
+  const filteredStudents = useStudentsData(
+    placeId.value,
+    sectionId.value,
+    stageId.value,
+    groupId.value
   );
-  let citiesOptions;
-  let sectionOptions;
-  let groupOptions;
-  let placeOptions;
 
-  if (filteredStudentsIsSuccess) {
-    console.log(filteredStudents);
-  }
-
-  if (!citiesIsLoading) {
-    citiesOptions = cities?.map((item) => {
-      return {
-        value: item.CityId,
-        label: item.Name_A,
-      };
-    });
-  }
-  if (!sectionIsLoading) {
-    sectionOptions = sections?.map((item) => {
-      return {
-        value: item.SectionId,
-        label: item.SectionName,
-      };
-    });
-  }
-  if (!groupIsLoading) {
-    groupOptions = groups?.map((item) => {
-      return {
-        value: item.GroupsId,
-        label: item.GroupsNameAr,
-      };
-    });
-  }
-  if (placeIsSuccess) {
-    placeOptions = placeData?.map((item) => {
-      return {
-        value: item.PlaceId,
-        label: item.PlaceNameAr,
-      };
-    });
-  }
   const stageOptions = [
-    { label: "مرحلة ثانية", value: 2 },
-    { label: "مرحلة ثالثة", value: 3 },
+    { label: "مرحلة ثالثة", value: 2 },
+    { label: "مرحلة رابعة", value: 3 },
   ];
   return (
     <div className="w-full h-[100dvh]  bg-stone-600 py-8 px-4">
@@ -83,22 +41,37 @@ function MainComp() {
           <Button>طباعة</Button>
         </div>
         <form className="flex flex-wrap items-center ">
-          <Selector options={citiesOptions} setter={setCityId}>
-            تصفية حسب المنطقة
-          </Selector>
-          <Selector options={sectionOptions} setter={setSectionId}>
-            تصفية حسب القسم
-          </Selector>
-          <Selector options={stageOptions} setter={setStageId}>
-            تصفية حسب المرحلة
-          </Selector>
+          <Selector
+            val={cityId}
+            options={citiesOptions}
+            setter={setCityId}
+            label={"تصفية حسب المنطقة"}
+          ></Selector>
+          <Selector
+            val={sectionId}
+            options={sectionOptions}
+            setter={setSectionId}
+            label={" تصفية حسب القسم"}
+          ></Selector>
+          <Selector
+            val={stageId}
+            options={stageOptions}
+            setter={setStageId}
+            label={"تصفية حسب المرحلة"}
+          ></Selector>
 
-          <Selector options={placeOptions} setter={setPlaceId}>
-            تصفية حسب المكان
-          </Selector>
-          <Selector options={groupOptions} setter={setGroupId}>
-            تصفية حسب المجموعة
-          </Selector>
+          <Selector
+            val={placeId}
+            options={placeOptions}
+            setter={setPlaceId}
+            label={"تصفية حسب المكان"}
+          ></Selector>
+          <Selector
+            val={groupId}
+            options={groupOptions}
+            setter={setGroupId}
+            label={"تصفية حسب المجموعة"}
+          ></Selector>
         </form>
         {!!filteredStudents && filteredStudents.length !== 0 ? (
           <Table data={filteredStudents}></Table>
