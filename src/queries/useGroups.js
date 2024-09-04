@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { groupsFetch } from "../services/groupsFetch";
 
 export function useGroups(placeId) {
-  console.log(!!placeId);
+
 
   const { data: groups, isSuccess: groupIsSuccess } = useQuery({
     queryKey: ["groups", placeId],

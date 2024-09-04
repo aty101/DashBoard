@@ -1,11 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import MainComp from "./MainComp";
+import Student from "./features/Student"
 
 function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <MainComp></MainComp>
+      <Student/>
     </QueryClientProvider>
   );
 }

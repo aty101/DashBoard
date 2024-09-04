@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import Select from "react-select";
 
 export default function Selector({ options, setter, label, val, disabled }) {

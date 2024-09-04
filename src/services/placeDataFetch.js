@@ -6,7 +6,7 @@ export async function placeDataFetch(cityId, sectionId, stageId) {
       `Student/GetPlaces?PlacesData={"CityId":${cityId},"SectionId":${sectionId},"StageId":${stageId}`
     );
 
-    return JSON.parse(res.data[0].jsonData);
+    return res.data && JSON.parse(res?.data[0]?.jsonData);
   } catch {
     throw new Error("Failed to fetch places data");
   }

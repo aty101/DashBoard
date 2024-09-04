@@ -1,5 +1,5 @@
 import { PiPencilLineDuotone } from "react-icons/pi";
-import Th from "./Th";
+import TabelHeadCell from "./TableHeadCell";
 
 function Table({ data, reference }) {
   return (
@@ -10,11 +10,11 @@ function Table({ data, reference }) {
     >
       <thead className="bg-sky-800 rounded-t-lg">
         <tr>
-          <Th>الاسم</Th>
-          <Th>اسم الكلية</Th>
-          <Th>الحالة</Th>
-          <Th>النظام</Th>
-          <Th>الاجراءات</Th>
+          <TabelHeadCell>الاسم</TabelHeadCell>
+          <TabelHeadCell>اسم الكلية</TabelHeadCell>
+          <TabelHeadCell>الحالة</TabelHeadCell>
+          <TabelHeadCell>النظام</TabelHeadCell>
+          <TabelHeadCell>الاجراءات</TabelHeadCell>
         </tr>
       </thead>
       <tbody>
