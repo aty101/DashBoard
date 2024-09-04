@@ -15,7 +15,11 @@ function MainComp() {
   );
   const ref = useRef("null");
   function handleSelect(name, selectedOption) {
-    setState((prev) => ({ ...prev, [name]: selectedOption }));
+    if (name === "stageId" || name === "sectionId" || name === "cityId") {
+      setState((prev) => ({ ...prev, [name]: selectedOption, placeId: null }));
+    } else {
+      setState((prev) => ({ ...prev, [name]: selectedOption }));
+    }
   }
 
   const handleToPrint = useReactToPrint({
