@@ -1,5 +1,5 @@
 import Selector from "../components/Selector";
-function Filter({ setState, state, options }) {
+function Filter({ setState, state, options, mode }) {
   const { groupId, sectionId, cityId, placeId, stageId } = state;
   const {
     citiesOptions,
@@ -30,19 +30,22 @@ function Filter({ setState, state, options }) {
         val={cityId}
         options={citiesOptions}
         setter={(e) => handleSelect("cityId", e)}
-        label={"تصفية حسب المنطقة"}
+        placeholder={mode ? "المنطقة" : "region"}
+        label={mode ? "تصفية حسب المنطقة" : "Filter by region"}
       ></Selector>
       <Selector
         val={sectionId}
         options={sectionOptions}
         setter={(e) => handleSelect("sectionId", e)}
-        label={" تصفية حسب القسم"}
+        label={mode ? "تصفية حسب القسم" : "Filter by department"}
+        placeholder={mode ? "القسم" : "department"}
       ></Selector>
       <Selector
         val={stageId}
         options={stageOptions}
         setter={(e) => handleSelect("stageId", e)}
-        label={"تصفية حسب المرحلة"}
+        label={mode ? "تصفية حسب المرحلة" : "Filter by stage"}
+        placeholder={mode ? "المرحلة" : "stage"}
       ></Selector>
 
       {
@@ -50,8 +53,9 @@ function Filter({ setState, state, options }) {
           val={placeId}
           options={placeOptions}
           setter={(e) => handleSelect("placeId", e)}
-          label={"تصفية حسب المكان"}
+          label={mode ? "تصفية حسب المكان" : "Filter by location"}
           disabled={!(!!stageId && !!cityId && !!sectionId)}
+          placeholder={mode ? "المكان" : "location"}
         ></Selector>
       }
       <Selector
@@ -59,7 +63,8 @@ function Filter({ setState, state, options }) {
         val={groupId}
         options={groupOptions}
         setter={(e) => handleSelect("groupId", e)}
-        label={"تصفية حسب المجموعة"}
+        label={mode ? "تصفية حسب المجموعة" : "Filter by group"}
+        placeholder={mode ? "المجموعة" : "group"}
       ></Selector>
     </form>
   );

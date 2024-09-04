@@ -1,20 +1,20 @@
 import { PiPencilLineDuotone } from "react-icons/pi";
 import TabelHeadCell from "./TableHeadCell";
 
-function Table({ data, reference }) {
+function Table({ data, reference, mode }) {
   return (
     <table
       ref={reference}
-      dir="rtl"
+      dir={"rtl"}
       className="overflow-hidden rounded-t-lg table-auto mx-0 sm:mx-5 shadow-md print:mx-auto print:mt-36 print:w-[90%] "
     >
       <thead className="bg-sky-800 rounded-t-lg">
         <tr>
-          <TabelHeadCell>الاسم</TabelHeadCell>
-          <TabelHeadCell>اسم الكلية</TabelHeadCell>
-          <TabelHeadCell>الحالة</TabelHeadCell>
-          <TabelHeadCell>النظام</TabelHeadCell>
-          <TabelHeadCell>الاجراءات</TabelHeadCell>
+          <TabelHeadCell>{mode ? "الاسم" : "Name"}</TabelHeadCell>
+          <TabelHeadCell> {mode ? "الكلية" : "College"}</TabelHeadCell>
+          <TabelHeadCell>{mode ? "الحالة" : "Status"}</TabelHeadCell>
+          <TabelHeadCell>{mode ? "النظام" : "System"}</TabelHeadCell>
+          <TabelHeadCell>{mode ? "الاجراءات" : "Actions"}</TabelHeadCell>
         </tr>
       </thead>
       <tbody>

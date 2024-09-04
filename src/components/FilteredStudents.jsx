@@ -1,7 +1,7 @@
 import Table from "./Table";
-function FilteredStudents({ filteredStudents, reference }) {
+function FilteredStudents({ filteredStudents, reference,mode }) {
   return !!filteredStudents && filteredStudents.length !== 0 ? (
-    <Table reference={reference} data={filteredStudents}></Table>
+    <Table mode={mode} reference={reference} data={filteredStudents}></Table>
   ) : null;
 }
 

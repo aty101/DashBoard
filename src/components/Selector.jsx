@@ -1,7 +1,13 @@
-
 import Select from "react-select";
 
-export default function Selector({ options, setter, label, val, disabled }) {
+export default function Selector({
+  options,
+  setter,
+  label,
+  val,
+  disabled,
+  placeholder,
+}) {
   return (
     <div className="flex flex-col p-2 gap-2 w-80 min-h-10">
       <label className="text-right">{label}</label>
@@ -12,7 +18,7 @@ export default function Selector({ options, setter, label, val, disabled }) {
         onChange={(e) => {
           setter(e);
         }}
-        placeholder=""
+        placeholder={placeholder}
       />
     </div>
   );

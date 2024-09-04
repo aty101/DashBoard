@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useCities } from "../queries/useCities";
 import { useSections } from "../queries/useSections";
@@ -8,6 +8,7 @@ import { useStudentsData } from "../queries/useStudentsData";
 import Filter from "../components/Filter";
 import Print from "../components/Print";
 import FilteredStudents from "../components/FilteredStudents";
+import NavBar from "../components/NavBar";
 
 function Student() {
   const [state, setState] = useState({
@@ -17,6 +18,8 @@ function Student() {
     placeId: "",
     stageId: "",
   });
+  const [araEng, setAraEng] = useState(true);
+ 
   const ref = useRef("null");
   const { groupId, sectionId, cityId, placeId, stageId } = state;
 
@@ -49,9 +52,10 @@ function Student() {
   return (
     <div className="w-full h-[100dvh]  bg-stone-600 py-8 px-4">
       <div className="bg-white w-full h-full py-6 px-3 bg flex flex-col gap-3 lg:gap-8">
-        <Print reference={ref} filteredStudents={filteredStudents} />
-        <Filter options={options} setState={setState} state={state} />
-        <FilteredStudents filteredStudents={filteredStudents} reference={ref} />
+        <NavBar changeMode={setAraEng} mode={araEng} />
+        <Print mode={araEng} reference={ref} filteredStudents={filteredStudents} />
+        <Filter mode={araEng} options={options} setState={setState} state={state} />
+        <FilteredStudents mode={araEng} filteredStudents={filteredStudents} reference={ref} />
       </div>
     </div>
   );
