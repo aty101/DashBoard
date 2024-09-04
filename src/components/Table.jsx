@@ -5,7 +5,7 @@ function Table({ data, reference, mode }) {
   return (
     <table
       ref={reference}
-      dir={"rtl"}
+      
       className="overflow-hidden rounded-t-lg table-auto mx-0 sm:mx-5 shadow-md print:mx-auto print:mt-36 print:w-[90%] "
     >
       <thead className="bg-sky-800 rounded-t-lg">
