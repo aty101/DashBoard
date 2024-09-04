@@ -19,7 +19,11 @@ function Student() {
     stageId: "",
   });
   const [araEng, setAraEng] = useState(true);
- 
+
+  useEffect(() => {
+    document.documentElement.setAttribute("dir", araEng ? "rtl" : "ltr");
+  }, [araEng]);
+
   const ref = useRef("null");
   const { groupId, sectionId, cityId, placeId, stageId } = state;
 
@@ -53,9 +57,22 @@ function Student() {
     <div className="w-full h-[100dvh]  bg-stone-600 py-8 px-4">
       <div className="bg-white w-full h-full py-6 px-3 bg flex flex-col gap-3 lg:gap-8">
         <NavBar changeMode={setAraEng} mode={araEng} />
-        <Print mode={araEng} reference={ref} filteredStudents={filteredStudents} />
-        <Filter mode={araEng} options={options} setState={setState} state={state} />
-        <FilteredStudents mode={araEng} filteredStudents={filteredStudents} reference={ref} />
+        <Print
+          mode={araEng}
+          reference={ref}
+          filteredStudents={filteredStudents}
+        />
+        <Filter
+          mode={araEng}
+          options={options}
+          setState={setState}
+          state={state}
+        />
+        <FilteredStudents
+          mode={araEng}
+          filteredStudents={filteredStudents}
+          reference={ref}
+        />
       </div>
     </div>
   );
