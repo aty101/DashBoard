@@ -16,7 +16,14 @@ function MainComp() {
   const ref = useRef("null");
   function handleSelect(name, selectedOption) {
     if (name === "stageId" || name === "sectionId" || name === "cityId") {
-      setState((prev) => ({ ...prev, [name]: selectedOption, placeId: null }));
+      setState((prev) => ({
+        ...prev,
+        [name]: selectedOption,
+        placeId: null,
+        groupId: null,
+      }));
+    } else if (name === "placeId") {
+      setState((prev) => ({ ...prev, [name]: selectedOption, groupId: null }));
     } else {
       setState((prev) => ({ ...prev, [name]: selectedOption }));
     }
@@ -28,17 +35,17 @@ function MainComp() {
 
   const citiesOptions = useCities();
   const sectionOptions = useSections();
-  const groupOptions = useGroups();
   const placeOptions = usePlaceData(
     cityId.value,
     sectionId.value,
     stageId.value
   );
+  const groupOptions = useGroups(placeId?.value);
   const filteredStudents = useStudentsData(
     placeId?.value,
     sectionId.value,
     stageId.value,
-    groupId.value
+    groupId?.value
   );
 
   const stageOptions = [
@@ -92,6 +99,7 @@ function MainComp() {
             ></Selector>
           }
           <Selector
+            disabled={!placeId}
             val={groupId}
             options={groupOptions}
             setter={(e) => handleSelect("groupId", e)}

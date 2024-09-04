@@ -1,13 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { groupsFetch } from "../services/groupsFetch";
 
-export function useGroups() {
-  const { data: groups, isLoading: groupIsLoading } = useQuery({
-    queryKey: ["groups"],
-    queryFn: groupsFetch,
+export function useGroups(placeId) {
+  console.log(!!placeId);
+
+  const { data: groups, isSuccess: groupIsSuccess } = useQuery({
+    queryKey: ["groups", placeId],
+    queryFn: () => groupsFetch(placeId),
+    enabled: !!placeId,
   });
   let groupOptions;
-  if (!groupIsLoading) {
+  if (groupIsSuccess) {
     groupOptions = groups?.map((item) => {
       return {
         value: item.GroupsId,
