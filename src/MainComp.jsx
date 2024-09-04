@@ -35,7 +35,7 @@ function MainComp() {
     stageId.value
   );
   const filteredStudents = useStudentsData(
-    placeId.value,
+    placeId?.value,
     sectionId.value,
     stageId.value,
     groupId.value
